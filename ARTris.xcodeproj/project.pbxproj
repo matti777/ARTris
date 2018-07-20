@@ -1,0 +1,749 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		492A04012101DCE20073CECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04002101DCE20073CECC /* AppDelegate.swift */; };
+		492A04032101DCE20073CECC /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 492A04022101DCE20073CECC /* art.scnassets */; };
+		492A04082101DCE20073CECC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492A04062101DCE20073CECC /* Main.storyboard */; };
+		492A040A2101DCE30073CECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 492A04092101DCE30073CECC /* Assets.xcassets */; };
+		492A040D2101DCE30073CECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492A040B2101DCE30073CECC /* LaunchScreen.storyboard */; };
+		492A04182101DCE30073CECC /* ARTrisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04172101DCE30073CECC /* ARTrisTests.swift */; };
+		492A04232101DCE30073CECC /* ARTrisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04222101DCE30073CECC /* ARTrisUITests.swift */; };
+		492A04342101DF790073CECC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04332101DF790073CECC /* MenuViewController.swift */; };
+		492A04352101DF790073CECC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04332101DF790073CECC /* MenuViewController.swift */; };
+		492A04362101DF790073CECC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04332101DF790073CECC /* MenuViewController.swift */; };
+		492A04382101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
+		492A04392101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
+		492A043A2101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
+		492A043C2101E4E50073CECC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04042101DCE20073CECC /* GameViewController.swift */; };
+		788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */; };
+		9DAB607745449C5761CD46F0 /* Pods_ARTris.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32733644E60497B96BF72AA /* Pods_ARTris.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		492A04142101DCE30073CECC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 492A03F52101DCE20073CECC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 492A03FC2101DCE20073CECC;
+			remoteInfo = ARTris;
+		};
+		492A041F2101DCE30073CECC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 492A03F52101DCE20073CECC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 492A03FC2101DCE20073CECC;
+			remoteInfo = ARTris;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		44D3FD417CE32670A2A21844 /* Pods-ARTrisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests.debug.xcconfig"; sourceTree = "<group>"; };
+		492A03FD2101DCE20073CECC /* ARTris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARTris.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		492A04002101DCE20073CECC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		492A04022101DCE20073CECC /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		492A04042101DCE20073CECC /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		492A04072101DCE20073CECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		492A04092101DCE30073CECC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		492A040C2101DCE30073CECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		492A040E2101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		492A04132101DCE30073CECC /* ARTrisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARTrisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		492A04172101DCE30073CECC /* ARTrisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTrisTests.swift; sourceTree = "<group>"; };
+		492A04192101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		492A041E2101DCE30073CECC /* ARTrisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARTrisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		492A04222101DCE30073CECC /* ARTrisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTrisUITests.swift; sourceTree = "<group>"; };
+		492A04242101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		492A04332101DF790073CECC /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		492A04372101DFF00073CECC /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.release.xcconfig"; sourceTree = "<group>"; };
+		88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests.release.xcconfig"; sourceTree = "<group>"; };
+		AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTrisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E32733644E60497B96BF72AA /* Pods_ARTris.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTris.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F646A1DA092A51BBAEBEA906 /* Pods-ARTris.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		492A03FA2101DCE20073CECC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DAB607745449C5761CD46F0 /* Pods_ARTris.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492A04102101DCE30073CECC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492A041B2101DCE30073CECC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		492A03F42101DCE20073CECC = {
+			isa = PBXGroup;
+			children = (
+				492A03FF2101DCE20073CECC /* ARTris */,
+				492A04162101DCE30073CECC /* ARTrisTests */,
+				492A04212101DCE30073CECC /* ARTrisUITests */,
+				492A03FE2101DCE20073CECC /* Products */,
+				7D6138EE1A060C122FDE2B6D /* Pods */,
+				ED1040C0757908B9F18699B8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		492A03FE2101DCE20073CECC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				492A03FD2101DCE20073CECC /* ARTris.app */,
+				492A04132101DCE30073CECC /* ARTrisTests.xctest */,
+				492A041E2101DCE30073CECC /* ARTrisUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		492A03FF2101DCE20073CECC /* ARTris */ = {
+			isa = PBXGroup;
+			children = (
+				492A04372101DFF00073CECC /* Podfile */,
+				492A04302101DF3B0073CECC /* ViewControllers */,
+				492A04062101DCE20073CECC /* Main.storyboard */,
+				492A04002101DCE20073CECC /* AppDelegate.swift */,
+				492A04092101DCE30073CECC /* Assets.xcassets */,
+				492A04022101DCE20073CECC /* art.scnassets */,
+				492A040E2101DCE30073CECC /* Info.plist */,
+				492A040B2101DCE30073CECC /* LaunchScreen.storyboard */,
+			);
+			path = ARTris;
+			sourceTree = "<group>";
+		};
+		492A04162101DCE30073CECC /* ARTrisTests */ = {
+			isa = PBXGroup;
+			children = (
+				492A04172101DCE30073CECC /* ARTrisTests.swift */,
+				492A04192101DCE30073CECC /* Info.plist */,
+			);
+			path = ARTrisTests;
+			sourceTree = "<group>";
+		};
+		492A04212101DCE30073CECC /* ARTrisUITests */ = {
+			isa = PBXGroup;
+			children = (
+				492A04222101DCE30073CECC /* ARTrisUITests.swift */,
+				492A04242101DCE30073CECC /* Info.plist */,
+			);
+			path = ARTrisUITests;
+			sourceTree = "<group>";
+		};
+		492A04302101DF3B0073CECC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				492A04312101DF430073CECC /* MenuViewController */,
+				492A04322101DF540073CECC /* GameViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		492A04312101DF430073CECC /* MenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				492A04332101DF790073CECC /* MenuViewController.swift */,
+			);
+			path = MenuViewController;
+			sourceTree = "<group>";
+		};
+		492A04322101DF540073CECC /* GameViewController */ = {
+			isa = PBXGroup;
+			children = (
+				492A04042101DCE20073CECC /* GameViewController.swift */,
+			);
+			path = GameViewController;
+			sourceTree = "<group>";
+		};
+		7D6138EE1A060C122FDE2B6D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F646A1DA092A51BBAEBEA906 /* Pods-ARTris.debug.xcconfig */,
+				76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */,
+				44D3FD417CE32670A2A21844 /* Pods-ARTrisTests.debug.xcconfig */,
+				88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		ED1040C0757908B9F18699B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E32733644E60497B96BF72AA /* Pods_ARTris.framework */,
+				AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		492A03FC2101DCE20073CECC /* ARTris */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 492A04272101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTris" */;
+			buildPhases = (
+				0C8720AA35D7A8B9B0FE4256 /* [CP] Check Pods Manifest.lock */,
+				492A03F92101DCE20073CECC /* Sources */,
+				492A043B2101E2190073CECC /* Run Swiftlint */,
+				492A03FA2101DCE20073CECC /* Frameworks */,
+				492A03FB2101DCE20073CECC /* Resources */,
+				4A4304AB19C7535F236571FB /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ARTris;
+			productName = ARTris;
+			productReference = 492A03FD2101DCE20073CECC /* ARTris.app */;
+			productType = "com.apple.product-type.application";
+		};
+		492A04122101DCE30073CECC /* ARTrisTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 492A042A2101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTrisTests" */;
+			buildPhases = (
+				2F59D17D687B97EC730748A6 /* [CP] Check Pods Manifest.lock */,
+				492A040F2101DCE30073CECC /* Sources */,
+				492A04102101DCE30073CECC /* Frameworks */,
+				492A04112101DCE30073CECC /* Resources */,
+				D52FA07658A14732A21C7BF1 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				492A04152101DCE30073CECC /* PBXTargetDependency */,
+			);
+			name = ARTrisTests;
+			productName = ARTrisTests;
+			productReference = 492A04132101DCE30073CECC /* ARTrisTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		492A041D2101DCE30073CECC /* ARTrisUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 492A042D2101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTrisUITests" */;
+			buildPhases = (
+				492A041A2101DCE30073CECC /* Sources */,
+				492A041B2101DCE30073CECC /* Frameworks */,
+				492A041C2101DCE30073CECC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				492A04202101DCE30073CECC /* PBXTargetDependency */,
+			);
+			name = ARTrisUITests;
+			productName = ARTrisUITests;
+			productReference = 492A041E2101DCE30073CECC /* ARTrisUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		492A03F52101DCE20073CECC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Matti Dahlbom";
+				TargetAttributes = {
+					492A03FC2101DCE20073CECC = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					492A04122101DCE30073CECC = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 492A03FC2101DCE20073CECC;
+					};
+					492A041D2101DCE30073CECC = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 492A03FC2101DCE20073CECC;
+					};
+				};
+			};
+			buildConfigurationList = 492A03F82101DCE20073CECC /* Build configuration list for PBXProject "ARTris" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 492A03F42101DCE20073CECC;
+			productRefGroup = 492A03FE2101DCE20073CECC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				492A03FC2101DCE20073CECC /* ARTris */,
+				492A04122101DCE30073CECC /* ARTrisTests */,
+				492A041D2101DCE30073CECC /* ARTrisUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		492A03FB2101DCE20073CECC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492A04382101DFF00073CECC /* Podfile in Resources */,
+				492A04032101DCE20073CECC /* art.scnassets in Resources */,
+				492A040D2101DCE30073CECC /* LaunchScreen.storyboard in Resources */,
+				492A040A2101DCE30073CECC /* Assets.xcassets in Resources */,
+				492A04082101DCE20073CECC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492A04112101DCE30073CECC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492A04392101DFF00073CECC /* Podfile in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492A041C2101DCE30073CECC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492A043A2101DFF00073CECC /* Podfile in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C8720AA35D7A8B9B0FE4256 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARTris-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2F59D17D687B97EC730748A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARTrisTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		492A043B2101E2190073CECC /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint";
+		};
+		4A4304AB19C7535F236571FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ARTris/Pods-ARTris-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
+				"${BUILT_PRODUCTS_DIR}/QvikSwift/QvikSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QvikSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARTris/Pods-ARTris-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D52FA07658A14732A21C7BF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
+				"${BUILT_PRODUCTS_DIR}/QvikSwift/QvikSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QvikSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		492A03F92101DCE20073CECC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492A043C2101E4E50073CECC /* GameViewController.swift in Sources */,
+				492A04342101DF790073CECC /* MenuViewController.swift in Sources */,
+				492A04012101DCE20073CECC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492A040F2101DCE30073CECC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492A04182101DCE30073CECC /* ARTrisTests.swift in Sources */,
+				492A04352101DF790073CECC /* MenuViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492A041A2101DCE30073CECC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492A04232101DCE30073CECC /* ARTrisUITests.swift in Sources */,
+				492A04362101DF790073CECC /* MenuViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		492A04152101DCE30073CECC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 492A03FC2101DCE20073CECC /* ARTris */;
+			targetProxy = 492A04142101DCE30073CECC /* PBXContainerItemProxy */;
+		};
+		492A04202101DCE30073CECC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 492A03FC2101DCE20073CECC /* ARTris */;
+			targetProxy = 492A041F2101DCE30073CECC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		492A04062101DCE20073CECC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				492A04072101DCE20073CECC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		492A040B2101DCE30073CECC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				492A040C2101DCE30073CECC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		492A04252101DCE30073CECC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		492A04262101DCE30073CECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		492A04282101DCE30073CECC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F646A1DA092A51BBAEBEA906 /* Pods-ARTris.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2RLYKMD3U8;
+				INFOPLIST_FILE = ARTris/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTris;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		492A04292101DCE30073CECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2RLYKMD3U8;
+				INFOPLIST_FILE = ARTris/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTris;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		492A042B2101DCE30073CECC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44D3FD417CE32670A2A21844 /* Pods-ARTrisTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2RLYKMD3U8;
+				INFOPLIST_FILE = ARTrisTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARTris.app/ARTris";
+			};
+			name = Debug;
+		};
+		492A042C2101DCE30073CECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2RLYKMD3U8;
+				INFOPLIST_FILE = ARTrisTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARTris.app/ARTris";
+			};
+			name = Release;
+		};
+		492A042E2101DCE30073CECC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2RLYKMD3U8;
+				INFOPLIST_FILE = ARTrisUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ARTris;
+			};
+			name = Debug;
+		};
+		492A042F2101DCE30073CECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2RLYKMD3U8;
+				INFOPLIST_FILE = ARTrisUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ARTris;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		492A03F82101DCE20073CECC /* Build configuration list for PBXProject "ARTris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492A04252101DCE30073CECC /* Debug */,
+				492A04262101DCE30073CECC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		492A04272101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492A04282101DCE30073CECC /* Debug */,
+				492A04292101DCE30073CECC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		492A042A2101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTrisTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492A042B2101DCE30073CECC /* Debug */,
+				492A042C2101DCE30073CECC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		492A042D2101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTrisUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492A042E2101DCE30073CECC /* Debug */,
+				492A042F2101DCE30073CECC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 492A03F52101DCE20073CECC /* Project object */;
+}

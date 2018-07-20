@@ -1,0 +1,33 @@
+PODS:
+  - ObjcExceptionBridging (1.0.1):
+    - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
+  - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
+  - QvikSwift (4.0.5)
+  - SwiftLint (0.26.0)
+  - XCGLogger (6.0.4):
+    - XCGLogger/Core (= 6.0.4)
+  - XCGLogger/Core (6.0.4):
+    - ObjcExceptionBridging
+
+DEPENDENCIES:
+  - QvikSwift (~> 4.0)
+  - SwiftLint
+  - XCGLogger (~> 6.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ObjcExceptionBridging
+    - SwiftLint
+    - XCGLogger
+  https://github.com/qvik/qvik-podspecs.git:
+    - QvikSwift
+
+SPEC CHECKSUMS:
+  ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
+  QvikSwift: fbea99a472b7ed5f2f6254141113d71b79c1e130
+  SwiftLint: f6b83e8d95ee1e91e11932d843af4fdcbf3fc764
+  XCGLogger: 4fc1bc0bdd5828cb8dc8da7a843536cda1bea8f3
+
+PODFILE CHECKSUM: 57a353ef5ef93c404e513d13e1902c60a183e516
+
+COCOAPODS: 1.5.3
