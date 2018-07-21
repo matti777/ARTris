@@ -21,6 +21,24 @@
 		492A04392101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
 		492A043A2101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
 		492A043C2101E4E50073CECC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04042101DCE20073CECC /* GameViewController.swift */; };
+		492A043F210236530073CECC /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A043E210236530073CECC /* Shape.swift */; };
+		492A0440210236530073CECC /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A043E210236530073CECC /* Shape.swift */; };
+		492A0441210236530073CECC /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A043E210236530073CECC /* Shape.swift */; };
+		492A0443210237B60073CECC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0442210237B60073CECC /* Unit.swift */; };
+		492A0444210237B60073CECC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0442210237B60073CECC /* Unit.swift */; };
+		492A0445210237B60073CECC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0442210237B60073CECC /* Unit.swift */; };
+		492A04472102390A0073CECC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04462102390A0073CECC /* Grid.swift */; };
+		492A04482102390A0073CECC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04462102390A0073CECC /* Grid.swift */; };
+		492A04492102390A0073CECC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04462102390A0073CECC /* Grid.swift */; };
+		492A044B2102493B0073CECC /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044A2102493B0073CECC /* Piece.swift */; };
+		492A044C2102493B0073CECC /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044A2102493B0073CECC /* Piece.swift */; };
+		492A044D2102493B0073CECC /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044A2102493B0073CECC /* Piece.swift */; };
+		492A044F21024A970073CECC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044E21024A970073CECC /* Constants.swift */; };
+		492A045021024A970073CECC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044E21024A970073CECC /* Constants.swift */; };
+		492A045121024A970073CECC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044E21024A970073CECC /* Constants.swift */; };
+		492A045321036DFC0073CECC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045221036DFC0073CECC /* Game.swift */; };
+		492A045421036DFC0073CECC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045221036DFC0073CECC /* Game.swift */; };
+		492A045521036DFC0073CECC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045221036DFC0073CECC /* Game.swift */; };
 		788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */; };
 		9DAB607745449C5761CD46F0 /* Pods_ARTris.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32733644E60497B96BF72AA /* Pods_ARTris.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +78,12 @@
 		492A04242101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		492A04332101DF790073CECC /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		492A04372101DFF00073CECC /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		492A043E210236530073CECC /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		492A0442210237B60073CECC /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
+		492A04462102390A0073CECC /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		492A044A2102493B0073CECC /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		492A044E21024A970073CECC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		492A045221036DFC0073CECC /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.release.xcconfig"; sourceTree = "<group>"; };
 		88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests.release.xcconfig"; sourceTree = "<group>"; };
 		AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTrisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				492A04372101DFF00073CECC /* Podfile */,
+				492A043D210236350073CECC /* GameLogic */,
 				492A04302101DF3B0073CECC /* ViewControllers */,
 				492A04062101DCE20073CECC /* Main.storyboard */,
 				492A04002101DCE20073CECC /* AppDelegate.swift */,
@@ -172,6 +197,19 @@
 				492A04042101DCE20073CECC /* GameViewController.swift */,
 			);
 			path = GameViewController;
+			sourceTree = "<group>";
+		};
+		492A043D210236350073CECC /* GameLogic */ = {
+			isa = PBXGroup;
+			children = (
+				492A043E210236530073CECC /* Shape.swift */,
+				492A0442210237B60073CECC /* Unit.swift */,
+				492A04462102390A0073CECC /* Grid.swift */,
+				492A044A2102493B0073CECC /* Piece.swift */,
+				492A044E21024A970073CECC /* Constants.swift */,
+				492A045221036DFC0073CECC /* Game.swift */,
+			);
+			path = GameLogic;
 			sourceTree = "<group>";
 		};
 		7D6138EE1A060C122FDE2B6D /* Pods */ = {
@@ -431,9 +469,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492A0443210237B60073CECC /* Unit.swift in Sources */,
+				492A045321036DFC0073CECC /* Game.swift in Sources */,
+				492A044B2102493B0073CECC /* Piece.swift in Sources */,
 				492A043C2101E4E50073CECC /* GameViewController.swift in Sources */,
 				492A04342101DF790073CECC /* MenuViewController.swift in Sources */,
 				492A04012101DCE20073CECC /* AppDelegate.swift in Sources */,
+				492A043F210236530073CECC /* Shape.swift in Sources */,
+				492A04472102390A0073CECC /* Grid.swift in Sources */,
+				492A044F21024A970073CECC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,8 +485,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492A0444210237B60073CECC /* Unit.swift in Sources */,
 				492A04182101DCE30073CECC /* ARTrisTests.swift in Sources */,
+				492A044C2102493B0073CECC /* Piece.swift in Sources */,
 				492A04352101DF790073CECC /* MenuViewController.swift in Sources */,
+				492A045021024A970073CECC /* Constants.swift in Sources */,
+				492A04482102390A0073CECC /* Grid.swift in Sources */,
+				492A0440210236530073CECC /* Shape.swift in Sources */,
+				492A045421036DFC0073CECC /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,8 +500,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492A0445210237B60073CECC /* Unit.swift in Sources */,
 				492A04232101DCE30073CECC /* ARTrisUITests.swift in Sources */,
+				492A044D2102493B0073CECC /* Piece.swift in Sources */,
 				492A04362101DF790073CECC /* MenuViewController.swift in Sources */,
+				492A045121024A970073CECC /* Constants.swift in Sources */,
+				492A04492102390A0073CECC /* Grid.swift in Sources */,
+				492A0441210236530073CECC /* Shape.swift in Sources */,
+				492A045521036DFC0073CECC /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +668,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
 				INFOPLIST_FILE = ARTris/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTris;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -628,7 +687,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
 				INFOPLIST_FILE = ARTris/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTris;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -645,7 +707,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
 				INFOPLIST_FILE = ARTrisTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -663,7 +729,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
 				INFOPLIST_FILE = ARTrisTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -679,7 +749,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
 				INFOPLIST_FILE = ARTrisUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -695,7 +769,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
 				INFOPLIST_FILE = ARTrisUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

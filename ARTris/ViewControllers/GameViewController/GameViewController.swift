@@ -10,9 +10,13 @@ import ARKit
 import SceneKit
 import UIKit
 
+/** Displays the game board / AR view. */
 class GameViewController: UIViewController, ARSCNViewDelegate {
-
+    /// Our scene view
     @IBOutlet private var sceneView: ARSCNView!
+
+    /// Current game
+    private var game: Game!
 
     // MARK: From ARSCNViewDelegate
 
@@ -60,6 +64,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        // Create new game
+        game = Game()
+        game.start()
 
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()

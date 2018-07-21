@@ -10,6 +10,7 @@ import UIKit
 
 import QvikSwift
 
+/** Displays the game main menu. */
 class MenuViewController: UIViewController {
     private static let segueIdMenuToGame = "artris.MenuToGame"
 
