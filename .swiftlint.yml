@@ -13,7 +13,6 @@ opt_in_rules:
   - closure_end_indentation
   - first_where
   - sorted_imports
-  - object_literal
   - number_separator
   - prohibited_super_call
   - fatal_error_message
@@ -27,6 +26,7 @@ opt_in_rules:
 
 disabled_rules:
   - unused_closure_parameter
+  - object_literal
   
 line_length: 220
 number_separator:
@@ -49,4 +49,11 @@ identifier_name:
   max_length: 
     warning: 40
     error: 45
+
+custom_rules:
+  discouraged_image_literal:
+    name: "Discouraged Image Literal"
+    regex: "#imageLiteral"
+    message: "Please use UIImage(named:) instead"
+    severity: warning
 

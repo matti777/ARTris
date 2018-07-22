@@ -7,6 +7,7 @@ source 'https://github.com/qvik/qvik-podspecs.git'
 def all_pods
     pod 'QvikSwift', '~> 4.0'
     pod 'XCGLogger', '~> 6.0'
+    pod 'Toast-Swift', '~> 3'
     pod 'SwiftLint'
 end
 
