@@ -18,6 +18,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Our scene view
     @IBOutlet private var sceneView: ARSCNView!
 
+    /// Close button
+    @IBOutlet private var closeButton: UIButton!
+
     // AR view configuration
     private var arConfig: ARWorldTrackingConfiguration!
 
@@ -42,6 +45,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
         let node = firstResult.node
         log.debug("Hit node: \(node)")
+    }
+
+    // MARK: IBAction handlers
+
+    @IBAction func closeButtonPressed(sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: From ARSCNViewDelegate
@@ -127,6 +136,30 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: Lifecycle etc.
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Create new game
+        game = Game()
+        game.start()
+
+        // Run / resumt the view's session
+        sceneView.session.run(arConfig)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        // Pause the view's session
+        sceneView.session.pause()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        closeButton.layer.cornerRadius = closeButton.width / 2.0
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -161,23 +194,5 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
         // Set the scene to the view
         sceneView.scene = scene
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        // Create new game
-        game = Game()
-        game.start()
-
-        // Run / resumt the view's session
-        sceneView.session.run(arConfig)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        // Pause the view's session
-        sceneView.session.pause()
     }
 }
