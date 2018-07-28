@@ -28,7 +28,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     private var arConfig: ARWorldTrackingConfiguration!
 
     /// Current game
-    private var game: Game!
+    private var game = Game()
 
     /// Pan gesture recognizer; used for selecting game location on the
     /// `panPlane`
@@ -40,6 +40,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// The location selector 'target' plane
     private var targetPlane: SCNNode?
+
+    /// Latest target plane coordinates. Nil if not in a proper location.
+    private var targetPlaneCoordinates: SCNVector3?
 
     /// Green target targetPlane material
     private var targetMaterial = SCNMaterial()
@@ -92,8 +95,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         if (abs(coordinates.x) > abs(Float(panPlaneGeometry.width / 2) * 0.8)) ||
             (abs(coordinates.y) > abs(Float(panPlaneGeometry.height / 2) * 0.8)) {
             targetPlaneGeometry.materials = [notAllowedMaterial]
+            targetPlaneCoordinates = nil
         } else {
             targetPlaneGeometry.materials = [targetMaterial]
+            targetPlaneCoordinates = coordinates
         }
     }
 
@@ -141,8 +146,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
 
     private func panEnded(recognizer: UIGestureRecognizer) {
+        if let targetPlaneCoordinates = targetPlaneCoordinates, let panPlane = panPlane, let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane {
+            log.debug("Placing game board")
+            let boardNode = BoardNode(board: game.board, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns))
+            boardNode.position = targetPlaneCoordinates
+            //TODO add the BoardNode under the local root (using panPlane's worldtransform) instead of under panPlane
+            panPlane.addChildNode(boardNode)
+        }
+
         targetPlane?.removeFromParentNode()
         targetPlane = nil
+        targetPlaneCoordinates = nil
         panPlane = nil
     }
 
@@ -265,10 +279,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // Create new game
-        game = Game()
-        game.start()
 
         // Run / resumt the view's session
         sceneView.session.run(arConfig)

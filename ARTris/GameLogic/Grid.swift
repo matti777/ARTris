@@ -18,10 +18,10 @@ import Foundation
  */
 class Grid {
     /// Number of columns in the grid (width in Units)
-    private(set) var numColumns: Int!
+    private(set) var numColumns: Int
 
     /// Number of rows in the grid (height in Units)
-    private(set) var numRows: Int!
+    private(set) var numRows: Int
 
     /// Grid data. A nil Unit in a location (x, y) means no Unit.
     /// Unit offset = y * numColumns + x

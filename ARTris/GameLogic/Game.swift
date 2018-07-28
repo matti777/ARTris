@@ -12,6 +12,9 @@ import Foundation
  Contains the high-level game logic.
  */
 class Game {
+    /// Game board
+    private(set) var board = Board()
+
     /// Current 'falling' (interactive) piece
     private var fallingPiece: Piece?
 
