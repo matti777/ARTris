@@ -11,7 +11,7 @@ PODS:
     - ObjcExceptionBridging
 
 DEPENDENCIES:
-  - QvikSwift (~> 4.0)
+  - QvikSwift (from `../qvik-swift-ios/`)
   - SwiftLint
   - Toast-Swift (~> 3)
   - XCGLogger (~> 6.0)
@@ -22,8 +22,10 @@ SPEC REPOS:
     - SwiftLint
     - Toast-Swift
     - XCGLogger
-  https://github.com/qvik/qvik-podspecs.git:
-    - QvikSwift
+
+EXTERNAL SOURCES:
+  QvikSwift:
+    :path: "../qvik-swift-ios/"
 
 SPEC CHECKSUMS:
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
@@ -32,6 +34,6 @@ SPEC CHECKSUMS:
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
   XCGLogger: 4fc1bc0bdd5828cb8dc8da7a843536cda1bea8f3
 
-PODFILE CHECKSUM: d01a1d8626a7ef23511210544af837bb849990f8
+PODFILE CHECKSUM: 2ac7652aa173350db67003087d1dd8ab80f094ae
 
 COCOAPODS: 1.5.3

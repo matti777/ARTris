@@ -21,17 +21,31 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Close button
     @IBOutlet private var closeButton: UIButton!
 
+    /// Defines category for objects that should be part of hit tests
+    private let hittableCategoryMask: Int = (1 << 31)
+
     // AR view configuration
     private var arConfig: ARWorldTrackingConfiguration!
 
     /// Current game
     private var game: Game!
 
-    /// Tap gesture recognizer
-    private var tapRecognizer: UITapGestureRecognizer!
+    /// Pan gesture recognizer; used for selecting game location on the
+    /// `panPlane`
+    private var panRecognizer: UIPanGestureRecognizer!
+
+    /// The horizontal plane being currently panned. The `targetPlane` moves
+    /// along this plane.
+    private var panPlane: SCNNode?
+
+    /// The location selector 'target' plane
+    private var targetPlane: SCNNode?
+
+    /// Green target texture
+    private var targetTexture: UIImage!
 
     // MARK: Private methods
-
+/*
     private func handleTap(location: CGPoint) {
         //TODO state handling: if game not started, try to pick a plane. if game started, drop falling piece.
 
@@ -45,7 +59,133 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
         let node = firstResult.node
         log.debug("Hit node: \(node)")
+
+        // Add 'target' texture as a plane
+        //TODO figure out a size from the clicked horizontal plane dimensions
+        let plane = SCNPlane(width: 0.5, height: 0.5)
+
+        //plane.materials.first?.diffuse.contents = UIColor(hexString: "#0000EE99")
+        plane.materials.first?.diffuse.contents = targetTexture
+
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.position = node.position
+        planeNode.eulerAngles = node.eulerAngles
+
+        node.addChildNode(planeNode)
     }
+*/
+    private func hitTest(recognizer: UIGestureRecognizer) -> (SCNNode?, SCNVector3?) {
+        let location = recognizer.location(in: sceneView)
+        let hitResults = sceneView.hitTest(location, options: [SCNHitTestOption.categoryBitMask: hittableCategoryMask])
+
+        //TODO make sure the hit test result is a horizontal plane!
+        guard let firstResult = hitResults.first else {
+            log.debug("No hits.")
+            return (nil, nil)
+        }
+
+        let node = firstResult.node
+        log.debug("Hit node: \(node)")
+
+        let coordinates = firstResult.localCoordinates
+        log.debug("Local coordinates: \(coordinates)")
+
+        return (node, coordinates)
+    }
+
+    private func endPan() {
+        assert(targetPlane != nil, "Target plane must exist at this point")
+        assert(panPlane != nil, "panPlane must be set at this point")
+
+        targetPlane?.removeFromParentNode()
+        targetPlane = nil
+        panPlane = nil
+
+        self.panRecognizer.cancel()
+    }
+
+    private func updateTargetPlane(coordinates: SCNVector3) {
+        guard let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let panPlaneGeomtery = panPlane?.geometry as? SCNPlane else {
+            log.error("Invalid target / pan plane")
+            return
+        }
+
+        // Figure out a side length for the target plane from the pan plane extents
+        let size = max(0.5, min(panPlaneGeomtery.width, panPlaneGeomtery.height) * 0.75)
+        log.debug("targetPlane size = \(size)")
+
+        targetPlaneGeometry.width = size
+        targetPlaneGeometry.height = size
+        targetPlane.position = coordinates
+    }
+
+    private func panBegan(recognizer: UIGestureRecognizer) {
+        log.debug("pan began")
+
+        assert(targetPlane == nil, "targetPlane must not exist at this point")
+        assert(panPlane == nil, "panPlane must not be set at this point")
+
+        guard let (node, coordinates) = hitTest(recognizer: recognizer) as? (SCNNode, SCNVector3) else {
+            // Didn't hit a horizontal plane
+            recognizer.cancel()
+            return
+        }
+
+        panPlane = node
+
+        let targetPlaneGeometry = SCNPlane(width: 0, height: 0)
+        targetPlaneGeometry.materials.first?.diffuse.contents = UIImage(named: "texture_target.pdf")
+        targetPlane = SCNNode(geometry: targetPlaneGeometry)
+        updateTargetPlane(coordinates: coordinates)
+
+        panPlane?.addChildNode(targetPlane!)
+    }
+
+    private func panChanged(recognizer: UIGestureRecognizer) {
+        log.debug("pan changed")
+
+        assert(targetPlane != nil, "Target plane must exist at this point")
+        assert(panPlane != nil, "panPlane must be set at this point")
+
+        guard let (_, coordinates) = hitTest(recognizer: recognizer) as? (SCNNode?, SCNVector3) else {
+            log.error("Failed to get local pan coordinates")
+            return
+        }
+
+        updateTargetPlane(coordinates: coordinates)
+    }
+
+    private func panEnded(recognizer: UIGestureRecognizer) {
+        log.debug("pan ended")
+
+        endPan()
+    }
+
+    /*
+     try:
+
+     CGContextRef context = UIGraphicsGetCurrentContext();
+ CGContextSetFillColor(context, CGColorGetComponents([UIColor colorWithRed:0.5 green:0.5 blue:0 alpha:1].CGColor)); // don't make color too saturated
+ CGContextFillRect(context, rect); // draw base
+ [[UIImage imageNamed:@"someImage.png"] drawInRect: rect blendMode:kCGBlendModeOverlay alpha:1.0];
+
+     or:
+
+     CGContextRef context = UIGraphicsGetCurrentContext();
+     CGContextSaveGState(context);
+
+     // Draw picture first
+     //
+     CGContextDrawImage(context, self.frame, self.image.CGImage);
+
+     // Blend mode could be any of CGBlendMode values. Now draw filled rectangle
+     // over top of image.
+     //
+     CGContextSetBlendMode (context, kCGBlendModeMultiply);
+     CGContextSetFillColor(context, CGColorGetComponents(self.overlayColor.CGColor));
+     CGContextFillRect (context, self.bounds);
+     CGContextRestoreGState(context);
+ */
 
     // MARK: IBAction handlers
 
@@ -72,6 +212,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         plane.materials.first?.diffuse.contents = UIImage(named: "tron_grid")
 
         let planeNode = SCNNode(geometry: plane)
+        planeNode.categoryBitMask |= hittableCategoryMask
 
         //TODO make nicer
         let x = CGFloat(planeAnchor.center.x)
@@ -107,7 +248,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         log.debug("Removed node: \(node)")
 
-        //TODO do we need to do something to our plane?
+        if let child = node.childNodes.first, let panPlane = panPlane, child == panPlane {
+            log.debug("*** panPlane was removed ***")
+
+            // Our panPlane was removed; cancel any pending pan operation
+            endPan()
+        }
     }
 
 /*
@@ -163,13 +309,33 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //TODO clean up
+        // Load PDF textures
+//        let bundle = NSBundle(forClass: self.classForCoder)
+//        let image = UIImage(named: "pic1", inBundle: bundle, compatibleWithTraitCollection: nil)
+        let targetImage = UIImage(named: "texture_target.pdf")
+        log.debug("targetImage: \(String(describing: targetImage))")
+
         // Create a tap gesture recognizer
-        tapRecognizer = UITapGestureRecognizer(callback: { [weak self] in
-            if let strongSelf = self {
-                strongSelf.handleTap(location: strongSelf.tapRecognizer.location(in: strongSelf.sceneView))
+//        tapRecognizer = UITapGestureRecognizer(callback: { [weak self] in
+//            if let strongSelf = self {
+//                strongSelf.handleTap(location: strongSelf.tapRecognizer.location(in: strongSelf.sceneView))
+//            }
+//        })
+//        sceneView.addGestureRecognizer(tapRecognizer)
+        panRecognizer = ImmediatePanGestureRecognizer(callback: { [weak self] recognizer in
+            switch recognizer.state {
+            case .possible:
+                break
+            case .began:
+                self?.panBegan(recognizer: recognizer)
+            case .changed:
+                self?.panChanged(recognizer: recognizer)
+            default:
+                self?.panEnded(recognizer: recognizer)
             }
         })
-        sceneView.addGestureRecognizer(tapRecognizer)
+        sceneView.addGestureRecognizer(panRecognizer)
 
         // Set the view's delegate
         sceneView.delegate = self
