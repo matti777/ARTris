@@ -13,7 +13,6 @@ opt_in_rules:
   - closure_end_indentation
   - first_where
   - sorted_imports
-  - number_separator
   - prohibited_super_call
   - fatal_error_message
   - vertical_parameter_alignment_on_call
@@ -27,8 +26,9 @@ opt_in_rules:
 disabled_rules:
   - unused_closure_parameter
   - object_literal
+  - number_separator
   
-line_length: 220
+line_length: 300
 number_separator:
   minimum_length: 5
 

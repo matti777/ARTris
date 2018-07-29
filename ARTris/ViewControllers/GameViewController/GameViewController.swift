@@ -21,8 +21,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Close button
     @IBOutlet private var closeButton: UIButton!
 
-    /// Defines category for objects that should be part of hit tests
-    private let hittableCategoryMask: Int = (1 << 31)
+    /// Defines hit test category for the detected horizontal planes
+    private let horizontalPlaneCategoryMask: Int = (1 << 30)
+
+    /// Defines hit test category for the infinite pan plane
+    private let infinitePlaneCategoryMask: Int = (1 << 31)
 
     // AR view configuration
     private var arConfig: ARWorldTrackingConfiguration!
@@ -30,19 +33,26 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Current game
     private var game = Game()
 
+    /// List of all the horizontal planes added to the scene
+    private var horizontalPlanes: [SCNNode] = []
+
     /// Pan gesture recognizer; used for selecting game location on the
     /// `panPlane`
     private var panRecognizer: UIPanGestureRecognizer!
 
     /// The horizontal plane being currently panned. The `targetPlane` moves
     /// along this plane.
-    private var panPlane: SCNNode?
+//    private var panPlane: SCNNode?
+
+    /// Infinite sized plane for panning when selecting the game board location.
+    /// The `targetPlane` moves along this plane.
+    private var infinitePanPlane: SCNNode?
 
     /// The location selector 'target' plane
     private var targetPlane: SCNNode?
 
-    /// Latest target plane coordinates. Nil if not in a proper location.
-    private var targetPlaneCoordinates: SCNVector3?
+    /// Latest target plane position world coordinates. Nil if not in a proper location.
+//    private var targetPlaneWorldCoordinates: SCNVector3?
 
     /// Green target targetPlane material
     private var targetMaterial = SCNMaterial()
@@ -62,25 +72,21 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         notAllowedMaterial.writesToDepthBuffer = false
     }
 
-    private func hitTest(recognizer: UIGestureRecognizer) -> (SCNNode?, SCNVector3?) {
+    /// Performs a hit test from given gesture recognizer location, optionally limiting the
+    /// test to a given hittable bitmask
+    private func hitTest(recognizer: UIGestureRecognizer, hitBitMask: Int? = nil) -> SCNHitTestResult? {
         let location = recognizer.location(in: sceneView)
-        let hitResults = sceneView.hitTest(location, options: [SCNHitTestOption.categoryBitMask: hittableCategoryMask])
-
-        //TODO make sure the hit test result is a horizontal plane!
-        //TODO hit-test against the infinite plane!
-        guard let firstResult = hitResults.first else {
-            log.debug("No hits.")
-            return (nil, nil)
+        var options: [SCNHitTestOption: Any]? = nil
+        if let hitBitMask = hitBitMask {
+            options = [SCNHitTestOption.categoryBitMask: hitBitMask]
         }
+        let hitResults = sceneView.hitTest(location, options: options)
 
-        let node = firstResult.node
-        let coordinates = firstResult.localCoordinates
-
-        return (node, coordinates)
+        return hitResults.first
     }
 
     private func updateTargetPlane(coordinates: SCNVector3) {
-        guard let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let panPlaneGeometry = panPlane?.geometry as? SCNPlane else {
+        guard let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let panPlaneGeometry = targetPlane.parent?.geometry as? SCNPlane else {
             log.error("Invalid target / pan plane")
             return
         }
@@ -95,69 +101,82 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         if (abs(coordinates.x) > abs(Float(panPlaneGeometry.width / 2) * 0.8)) ||
             (abs(coordinates.y) > abs(Float(panPlaneGeometry.height / 2) * 0.8)) {
             targetPlaneGeometry.materials = [notAllowedMaterial]
-            targetPlaneCoordinates = nil
         } else {
             targetPlaneGeometry.materials = [targetMaterial]
-            targetPlaneCoordinates = coordinates
         }
+        log.debug("Updated targetPlane")
     }
 
     private func panBegan(recognizer: UIGestureRecognizer) {
         log.debug("pan began")
 
         assert(targetPlane == nil, "targetPlane must not exist at this point")
-        assert(panPlane == nil, "panPlane must not be set at this point")
+        assert(infinitePanPlane == nil, "infinitePanPlane must not be set at this point")
 
-        guard let (node, coordinates) = hitTest(recognizer: recognizer) as? (SCNNode, SCNVector3) else {
+        guard let hitResult = hitTest(recognizer: recognizer, hitBitMask: horizontalPlaneCategoryMask) else {
             // Didn't hit a horizontal plane
+            log.debug("Didn't hit a horizontal plane")
             recognizer.cancel()
             return
         }
 
-        panPlane = node
+        // Create an infinite sized plane for handling panning
+        let infinitePanPlaneGeometry = SCNPlane(width: 10000, height: 10000)
+        infinitePanPlaneGeometry.materials = [createMaterial(UIColor(hexString: "#00000000"))]
+        infinitePanPlane = SCNNode(geometry: infinitePanPlaneGeometry)
+        infinitePanPlane!.categoryBitMask |= infinitePlaneCategoryMask
+        hitResult.node.addChildNode(infinitePanPlane!)
 
+        // Create a reasonably sized planar texture for showing the placement 'target'
         let targetPlaneGeometry = SCNPlane(width: 0, height: 0)
         targetPlaneGeometry.materials = [targetMaterial]
         targetPlane = SCNNode(geometry: targetPlaneGeometry)
         targetPlane?.renderingOrder = 1
-        updateTargetPlane(coordinates: coordinates)
+        hitResult.node.addChildNode(targetPlane!)
 
-        panPlane?.addChildNode(targetPlane!)
+        updateTargetPlane(coordinates: hitResult.localCoordinates)
     }
 
     private func panChanged(recognizer: UIGestureRecognizer) {
         assert(targetPlane != nil, "Target plane must exist at this point")
-        assert(panPlane != nil, "panPlane must be set at this point")
+        assert(infinitePanPlane != nil, "infinitePanPlane must be set at this point")
 
-        guard let (node, coordinates) = hitTest(recognizer: recognizer) as? (SCNNode?, SCNVector3) else {
-            //TODO we need to add an infinite sized plane to handle the panning; do this when pan starts
-            log.error("Failed to get local pan coordinates")
+        guard let hitResult = hitTest(recognizer: recognizer, hitBitMask: infinitePlaneCategoryMask) else {
+            log.debug("panChanged: Didn't hit infinity pan plane?")
             return
         }
 
-        // Check that it is the same plane that we started the pan on
-        if node != panPlane {
-            log.error("*** Hit another plane, aborting ***")
-            recognizer.cancel()
-            return
-        }
-
-        updateTargetPlane(coordinates: coordinates)
+        updateTargetPlane(coordinates: hitResult.localCoordinates)
     }
 
+    /// Handles ending of the pan gesture; if the pan location is within legal
+    /// bounds for the horizontal plane, place the game board there and start the game
     private func panEnded(recognizer: UIGestureRecognizer) {
-        if let targetPlaneCoordinates = targetPlaneCoordinates, let panPlane = panPlane, let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane {
-            log.debug("Placing game board")
+        if let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let hitResult = hitTest(recognizer: recognizer, hitBitMask: infinitePlaneCategoryMask), let pov = sceneView.pointOfView {
+
             let boardNode = BoardNode(board: game.board, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns))
-            boardNode.position = targetPlaneCoordinates
-            //TODO add the BoardNode under the local root (using panPlane's worldtransform) instead of under panPlane
-            panPlane.addChildNode(boardNode)
+            boardNode.position = hitResult.worldCoordinates
+
+            // Turn the board so that it faces the camera - just dont rotate it
+            // in the Y direction so that it will stand straight
+            let lookAtPoint = SCNVector3(x: pov.worldPosition.x, y: boardNode.worldPosition.y, z: pov.worldPosition.z)
+            boardNode.look(at: lookAtPoint, up: boardNode.worldUp, localFront: SCNVector3(x: 0, y: 0, z: 1))
+
+            sceneView.scene.rootNode.addChildNode(boardNode)
+            game.start()
+
+            // Stop recognizing panning as now the game is on
+            self.sceneView.removeGestureRecognizer(self.panRecognizer)
+            self.panRecognizer = nil
         }
 
         targetPlane?.removeFromParentNode()
         targetPlane = nil
-        targetPlaneCoordinates = nil
-        panPlane = nil
+        log.debug("targetPlane removed")
+
+        infinitePanPlane?.removeFromParentNode()
+        infinitePanPlane = nil
+        log.debug("infinitePanPlane removed")
     }
 
     /*
@@ -199,25 +218,18 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             return
         }
 
-        //TODO make nicer
-        let width = CGFloat(planeAnchor.extent.x)
-        let height = CGFloat(planeAnchor.extent.z)
-        let plane = SCNPlane(width: width, height: height)
-
-        //plane.materials.first?.diffuse.contents = UIColor(hexString: "#0000EE99")
+        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
         plane.materials.first?.diffuse.contents = UIImage(named: "honeycomb_texture")
 
         let planeNode = SCNNode(geometry: plane)
-        planeNode.categoryBitMask |= hittableCategoryMask
+        planeNode.categoryBitMask |= horizontalPlaneCategoryMask
 
-        //TODO make nicer
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z)
-        planeNode.position = SCNVector3(x, y, z)
+        planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         planeNode.eulerAngles.x = -.pi / 2
 
         node.addChildNode(planeNode)
+
+        horizontalPlanes.append(planeNode)
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
@@ -225,26 +237,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             return
         }
 
-        //TODO make nicer
-        log.debug("planeAnchor.extent: \(planeAnchor.extent)")
-        let width = CGFloat(planeAnchor.extent.x)
-        let height = CGFloat(planeAnchor.extent.z)
-        plane.width = width
-        plane.height = height
+        plane.width = CGFloat(planeAnchor.extent.x)
+        plane.height = CGFloat(planeAnchor.extent.z)
 
-        //TODO make nicer
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z)
-        planeNode.position = SCNVector3(x, y, z)
-        log.debug("new planeNode.position = \(planeNode.position)")
+        planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-        log.debug("** Removed node: \(node) **")
+        log.debug("*** Removed horizontal plane, parent node: \(node) ***")
 
-        if let child = node.childNodes.first, let panPlane = panPlane, child == panPlane {
-            log.debug("*** panPlane was removed ***")
+        if let targetPlane = targetPlane, let horizontalPlane = targetPlane.parent, let child = node.childNodes.first, horizontalPlane == child {
+            log.debug("*** Panning horizontal plane was removed ***")
 
             // Our panPlane was removed; cancel any pending pan operation
             self.panRecognizer.cancel()
@@ -325,7 +328,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         sceneView.automaticallyUpdatesLighting = true
 
         // Enable debug visualization helpers
-        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+//        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
@@ -335,11 +338,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         arConfig.isLightEstimationEnabled = true
         arConfig.planeDetection = .horizontal
 
-        // Create a new scene
-        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        let scene = SCNScene()
-
-        // Set the scene to the view
-        sceneView.scene = scene
+        // Initialize our scene
+        sceneView.scene = SCNScene()
     }
 }

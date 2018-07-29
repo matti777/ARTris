@@ -47,10 +47,8 @@ class Shape {
             for y in 0..<4 {
                 let s = m[y]
                 assert(s.count == 4, "Invalid row length for shape")
-                for x in 0..<s.count {
-                    if s[x] == "X" {
-                        grid[x, y] = Unit(type: type)
-                    }
+                for x in 0..<s.count where s[x] == "X" {
+                    grid[x, y] = Unit(type: type)
                 }
             }
 

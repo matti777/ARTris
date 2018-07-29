@@ -17,9 +17,15 @@ import QvikSwift
  */
 class BoardNode: SCNNode {
     private var board: Board
-    private var width: CGFloat
-    private var height: CGFloat
-    private var depth: CGFloat
+
+    /// Object's width (x)
+    private(set) var width: CGFloat
+
+    /// Object's height (y)
+    private(set) var height: CGFloat
+
+    /// Object's depth (z)
+    private(set) var depth: CGFloat
 
     /**
      Creates the board.
@@ -35,29 +41,34 @@ class BoardNode: SCNNode {
         super.init()
 
         // Create our shared 'wall' material
-
-        let floorMaterial = SCNMaterial()
-        floorMaterial.diffuse.contents = UIColor(hexString: "#FF0000FF")
-        floorMaterial.isDoubleSided = true
+        //TODO
 
         // Add 'floor'
         let floorGeometry = SCNPlane(width: width, height: depth)
-        floorGeometry.materials = [floorMaterial]
+        floorGeometry.materials = [createMaterial(UIColor(hexString: "#FF0000FF"))]
         let floor = SCNNode(geometry: floorGeometry)
         floor.eulerAngles.x = -.pi / 2
         addChildNode(floor)
 
-        let wallMaterial = SCNMaterial()
-        wallMaterial.diffuse.contents = UIColor(hexString: "#0000FFFF")
-        wallMaterial.isDoubleSided = true
-
         // Add 'left wall'
-        let wallGeometry = SCNPlane(width: height, height: depth)
-        wallGeometry.materials = [wallMaterial]
-        let leftWall = SCNNode(geometry: wallGeometry)
+        let leftWallGeometry = SCNPlane(width: height, height: depth)
+        leftWallGeometry.materials = [createMaterial(UIColor(hexString: "#0000FFFF"))]
+        let leftWall = SCNNode(geometry: leftWallGeometry)
         leftWall.eulerAngles.x = -.pi / 2
         leftWall.eulerAngles.z = .pi / 2
+        leftWall.position.x = Float(-width / 2)
+        leftWall.position.y = Float(height / 2)
         addChildNode(leftWall)
+
+        // Add 'right wall'
+        let rightWallGeometry = SCNPlane(width: height, height: depth)
+        rightWallGeometry.materials = [createMaterial(UIColor(hexString: "#00FF00FF"))]
+        let rightWall = SCNNode(geometry: rightWallGeometry)
+        rightWall.eulerAngles.x = -.pi / 2
+        rightWall.eulerAngles.z = .pi / 2
+        rightWall.position.x = Float(width / 2)
+        rightWall.position.y = Float(height / 2)
+        addChildNode(rightWall)
 
         //TODO others
     }
