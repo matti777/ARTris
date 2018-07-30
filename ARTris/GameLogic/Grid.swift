@@ -12,7 +12,8 @@ import Foundation
  A Grid stores game pice Units to form a falling piece or parts of already
  fallen pieces ('static units').
 
- Both the game board and the falling piece are represented by a Grid.
+ Both the game board and the falling piece are represented by a Grid. The data
+ is organized so that greater column number -> right, greater row number -> down.
 
  Grid contains collision detection logic.
  */
@@ -29,11 +30,23 @@ class Grid {
 
     // MARK: Private methods
 
-    private func checkIndexRanges(column: Int, row: Int) -> Bool {
-        return (row >= 0) && (row < numRows) && (column >= 0) && (column < numColumns)
+    private func checkIndexRanges(x: Int, y: Int) -> Bool {
+        return (y >= 0) && (y < numRows) && (x >= 0) && (x < numColumns)
     }
 
     // MARK: Public methods
+
+    /// Traverses the entire grid, calling the callback with x, y, value when there
+    /// is a non-nil value for that (x, y) location.
+    func traverse(callback: (_ x: Int, _ y: Int, _ unit: Unit) -> Void) {
+        for y in 0..<numRows {
+            for x in 0..<numColumns {
+                if let unit = self[x, y] {
+                    callback(x, y, unit)
+                }
+            }
+        }
+    }
 
     /// Returns an ascii art describing the grid.
     func asciiArt() -> String {
@@ -54,15 +67,15 @@ class Grid {
     // MARK: Operator overloads
 
     /// Accesses the Grid data
-    subscript(column: Int, row: Int) -> Unit? {
+    subscript(x: Int, y: Int) -> Unit? {
         get {
-            assert(checkIndexRanges(column: column, row: row), "Index out of range")
-            return data[(row * numColumns) + column]
+            assert(checkIndexRanges(x: x, y: y), "Index out of range")
+            return data[(y * numColumns) + x]
         }
 
         set {
-            assert(checkIndexRanges(column: column, row: row), "Index out of range")
-            data[(row * numColumns) + column] = newValue
+            assert(checkIndexRanges(x: x, y: y), "Index out of range")
+            data[(y * numColumns) + x] = newValue
         }
     }
 

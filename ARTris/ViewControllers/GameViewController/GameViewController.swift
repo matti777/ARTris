@@ -183,11 +183,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
 
     /// Adds a new unit cube to the scene.
-    func handleAddGeometry(color: UIColor, gridCoordinates: GridCoordinates) -> AnyObject {
-        log.debug("TODO: Add new cube")
-
-        //TODO check stuff
-        let unitNode = UnitNode(size: boardNode.unitSize, color: UIColor(hexString: "#AABBCC"))
+    func handleAddGeometry(color: UIColor, boardCoordinates: GridCoordinates) -> AnyObject {
+        log.debug("Adding unit to boardCoordinates: \(boardCoordinates)")
+        let unitNode = UnitNode(size: boardNode.unitSize, color: color)
+        unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
+        boardNode.addChildNode(unitNode)
 
         return unitNode
     }
@@ -291,8 +291,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        game = Game(addGeometryCallback: { [weak self] (color, gridCoordinates) -> AnyObject in
-            return self!.handleAddGeometry(color: color, gridCoordinates: gridCoordinates)
+        game = Game(addGeometryCallback: { [weak self] color, boardCoordinates -> AnyObject in
+            return self!.handleAddGeometry(color: color, boardCoordinates: boardCoordinates)
         })
 
         // Load our resources

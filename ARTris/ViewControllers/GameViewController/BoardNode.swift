@@ -30,6 +30,22 @@ class BoardNode: SCNNode {
     /// Unit side length (= dimensions for a unit cube, building blocks for game pieces)
     private(set) var unitSize: CGFloat
 
+    // MARK: Public methods
+
+    /// Translates the given unit's 2D board grid coordinates into 3D coordinates in
+    /// the BoardNode's coordinate system. The returned coordinate will represent the
+    /// location of the unit's origin (center point).
+    func translateCoordinates(gridCoordinates: GridCoordinates) -> SCNVector3 {
+        log.debug("Got gridCoordinates: \(gridCoordinates)")
+
+        let x = CGFloat(gridCoordinates.x - (board.numColumns / 2)) * unitSize
+        let y = CGFloat(-gridCoordinates.y + board.numRows) * unitSize
+
+        return SCNVector3(x: Float(x + (unitSize / 2)), y: Float(y + (unitSize / 2)), z: 0)
+    }
+
+    // MARK: Initializers
+
     /**
      Creates the board.
 

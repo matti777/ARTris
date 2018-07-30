@@ -6,21 +6,38 @@
 //  Copyright © 2018 Matti Dahlbom. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /**
- Represents a game piece. The piece consists of multiple Units, laid out in
+ Represents a game piece ('tetromino'). The piece consists of multiple Units, laid out in
  a Grid. There is one Grid per each of the rotations (piece orientations).
  */
 class Piece {
+    /// Piece ('tetromino') types.
+    enum Kind {
+        case square, i
+    }
+
     /// Defines all the 4 rotations the pieces can be in
     enum Rotation: Int {
         case deg0 = 0, deg90, deg180, deg270
     }
 
+    /// Size (side length) for all pieces
+    static let size = 4
+
     /// All the rotations in order; traversing the array using an ascending index
     /// goes through the rotations in clockwise order.
     private static let rotations: [Rotation] = [.deg0, .deg90, .deg180, .deg270]
+
+    /// Piece colors map
+    static let colors: [Kind: UIColor] = [
+        .square: UIColor(hexString: "#2DFEFE"),
+        .i: UIColor(hexString: "#FD29FC"),
+    ]
+
+    /// Type of this piece
+    var kind: Kind
 
     /// Piece as a Grid, in 0-degree rotation
     private var grid: Grid
@@ -31,13 +48,22 @@ class Piece {
     /// Current rotation
     private var rotation: Rotation = .deg0
 
-    /// Returns an ascii art describing all the rotations (grids) for this piece
-    func asciiArt() -> String {
-        return grid.asciiArt()
+    /// Returns the number of empty rows in the bottom of the grid
+    var bottomMargin: Int {
+        for i in 0..<Piece.size {
+            let y = (Piece.size - 1) - i
+            for x in 0..<Piece.size where self[x, y] != nil {
+                return i
+            }
+        }
+
+        return Piece.size
     }
 
+    // MARK: Private methods
+
     // All the piece shapes (in their 0-degree rotation) in parseable ascii art format
-    private static let shapes: [PieceType: [String]] = [
+    private static let shapes: [Kind: [String]] = [
         .square: ["....",
                   ".XX.",
                   ".XX.",
@@ -49,27 +75,49 @@ class Piece {
     ]
 
     /// Creates a new Grid for a given piece type.
-    static func parseShape(type: PieceType) -> Grid {
-        guard let shape = Piece.shapes[type] else {
-            assert(false, "Failed to find shape for type \(type)")
+    private static func parseShape(kind: Kind) -> Grid {
+        guard let shape = Piece.shapes[kind] else {
+            assert(false, "Failed to find shape for kind \(kind)")
         }
 
-        assert(shape.count == 4, "Invalid row count for shape")
-        let grid = Grid(numColumns: 4, numRows: 4)
+        assert(shape.count == Piece.size, "Invalid row count for shape")
+        let grid = Grid(numColumns: Piece.size, numRows: Piece.size)
 
-        for y in 0..<4 {
-            assert(shape[y].count == 4, "Invalid row length for shape")
+        for y in 0..<Piece.size {
+            assert(shape[y].count == Piece.size, "Invalid row length for shape")
             for x in 0..<shape[y].count where shape[y][x] == "X" {
-                grid[x, y] = Unit(type: type)
+                grid[x, y] = Unit()
             }
         }
 
         return grid
     }
 
+    // MARK: Public methods
+
+    /// Traverses the Piece's rotated grid, calling the callback with x, y, value when there
+    /// is a non-nil value for that (x, y) location.
+    func traverse(callback: (_ x: Int, _ y: Int, _ unit: Unit) -> Void) {
+        rotatedGrid.traverse(callback: callback)
+    }
+
+    /// Accesses the current rotation of the Piece's Grid
+    subscript(x: Int, y: Int) -> Unit? {
+        return rotatedGrid[x, y]
+    }
+
+    /// Returns an ascii art describing all the rotations (grids) for this piece
+    func asciiArt() -> String {
+        return grid.asciiArt()
+    }
+
+    // MARK: Initializers
+
     /// Creates a new Piece for a given type.
-    init(type: PieceType) {
-        grid = Piece.parseShape(type: type)
+    init(kind: Kind) {
+        self.kind = kind
+
+        grid = Piece.parseShape(kind: kind)
         rotatedGrid = Grid(grid: grid)
     }
 }

@@ -16,11 +16,15 @@ import UIKit
  Its positional information is stored in a Grid.
  */
 class Unit {
-    /// PieceType of this unit. Dictates unit color.
-    var type: PieceType
+    /// Kind of the Piece this unit belongs to. Dictates unit color.
+//    var kind: Piece.Kind
+
+    var object: AnyObject!
 
     /// Creates a new Unit, with a PieceType
-    init(type: PieceType) {
-        self.type = type
-    }
+//    init(type: Piece.Type) {
+//        self.type = type
+//    }
+
+
 }
