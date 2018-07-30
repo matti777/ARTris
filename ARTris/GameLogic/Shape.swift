@@ -8,6 +8,8 @@
 
 import Foundation
 
+//TODO: deprecated, remove this file.
+
 /**
  Represents the different game piece shapes. All the game shapes are 4x4 Grids.
  */

@@ -45,6 +45,10 @@
 		492A045D210CC8450073CECC /* BoardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045B210CC8450073CECC /* BoardNode.swift */; };
 		492A045F210E35A10073CECC /* SceneKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045E210E35A10073CECC /* SceneKitUtils.swift */; };
 		492A0460210E35A10073CECC /* SceneKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045E210E35A10073CECC /* SceneKitUtils.swift */; };
+		492A0462210EFB600073CECC /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0461210EFB600073CECC /* UnitNode.swift */; };
+		492A0463210EFB600073CECC /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0461210EFB600073CECC /* UnitNode.swift */; };
+		492A0465210EFF2D0073CECC /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0464210EFF2D0073CECC /* Types.swift */; };
+		492A0466210EFF2D0073CECC /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0464210EFF2D0073CECC /* Types.swift */; };
 		788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */; };
 		9DAB607745449C5761CD46F0 /* Pods_ARTris.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32733644E60497B96BF72AA /* Pods_ARTris.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +97,8 @@
 		492A0458210CC7520073CECC /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		492A045B210CC8450073CECC /* BoardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardNode.swift; sourceTree = "<group>"; };
 		492A045E210E35A10073CECC /* SceneKitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitUtils.swift; sourceTree = "<group>"; };
+		492A0461210EFB600073CECC /* UnitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitNode.swift; sourceTree = "<group>"; };
+		492A0464210EFF2D0073CECC /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.release.xcconfig"; sourceTree = "<group>"; };
 		88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests.release.xcconfig"; sourceTree = "<group>"; };
 		AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTrisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +212,7 @@
 				492A04042101DCE20073CECC /* GameViewController.swift */,
 				492A045B210CC8450073CECC /* BoardNode.swift */,
 				492A045E210E35A10073CECC /* SceneKitUtils.swift */,
+				492A0461210EFB600073CECC /* UnitNode.swift */,
 			);
 			path = GameViewController;
 			sourceTree = "<group>";
@@ -220,6 +227,7 @@
 				492A044E21024A970073CECC /* Constants.swift */,
 				492A045221036DFC0073CECC /* Game.swift */,
 				492A0458210CC7520073CECC /* Board.swift */,
+				492A0464210EFF2D0073CECC /* Types.swift */,
 			);
 			path = GameLogic;
 			sourceTree = "<group>";
@@ -486,7 +494,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				492A0443210237B60073CECC /* Unit.swift in Sources */,
+				492A0462210EFB600073CECC /* UnitNode.swift in Sources */,
 				492A045321036DFC0073CECC /* Game.swift in Sources */,
+				492A0465210EFF2D0073CECC /* Types.swift in Sources */,
 				492A0459210CC7520073CECC /* Board.swift in Sources */,
 				492A044B2102493B0073CECC /* Piece.swift in Sources */,
 				492A043C2101E4E50073CECC /* GameViewController.swift in Sources */,
@@ -512,9 +522,11 @@
 				492A045021024A970073CECC /* Constants.swift in Sources */,
 				492A04482102390A0073CECC /* Grid.swift in Sources */,
 				492A0440210236530073CECC /* Shape.swift in Sources */,
+				492A0466210EFF2D0073CECC /* Types.swift in Sources */,
 				492A045421036DFC0073CECC /* Game.swift in Sources */,
 				492A0460210E35A10073CECC /* SceneKitUtils.swift in Sources */,
 				492A045A210CC7520073CECC /* Board.swift in Sources */,
+				492A0463210EFB600073CECC /* UnitNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

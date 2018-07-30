@@ -27,6 +27,9 @@ class BoardNode: SCNNode {
     /// Object's depth (z)
     private(set) var depth: CGFloat
 
+    /// Unit side length (= dimensions for a unit cube, building blocks for game pieces)
+    private(set) var unitSize: CGFloat
+
     /**
      Creates the board.
 
@@ -37,6 +40,7 @@ class BoardNode: SCNNode {
         self.width = unitSize * CGFloat(board.numColumns)
         self.depth = unitSize
         self.height = unitSize * CGFloat(board.numRows)
+        self.unitSize = unitSize
 
         super.init()
 

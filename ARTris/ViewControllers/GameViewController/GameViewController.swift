@@ -31,7 +31,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     private var arConfig: ARWorldTrackingConfiguration!
 
     /// Current game
-    private var game = Game()
+    private var game: Game!
+
+    /// Game board node
+    private var boardNode: BoardNode!
 
     /// List of all the horizontal planes added to the scene
     private var horizontalPlanes: [SCNNode] = []
@@ -154,7 +157,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     private func panEnded(recognizer: UIGestureRecognizer) {
         if let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let hitResult = hitTest(recognizer: recognizer, hitBitMask: infinitePlaneCategoryMask), let pov = sceneView.pointOfView {
 
-            let boardNode = BoardNode(board: game.board, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns))
+            boardNode = BoardNode(board: game.board, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns))
             boardNode.position = hitResult.worldCoordinates
 
             // Turn the board so that it faces the camera - just dont rotate it
@@ -179,31 +182,15 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         log.debug("infinitePanPlane removed")
     }
 
-    /*
-     try:
+    /// Adds a new unit cube to the scene.
+    func handleAddGeometry(color: UIColor, gridCoordinates: GridCoordinates) -> AnyObject {
+        log.debug("TODO: Add new cube")
 
-     CGContextRef context = UIGraphicsGetCurrentContext();
- CGContextSetFillColor(context, CGColorGetComponents([UIColor colorWithRed:0.5 green:0.5 blue:0 alpha:1].CGColor)); // don't make color too saturated
- CGContextFillRect(context, rect); // draw base
- [[UIImage imageNamed:@"someImage.png"] drawInRect: rect blendMode:kCGBlendModeOverlay alpha:1.0];
+        //TODO check stuff
+        let unitNode = UnitNode(size: boardNode.unitSize, color: UIColor(hexString: "#AABBCC"))
 
-     or:
-
-     CGContextRef context = UIGraphicsGetCurrentContext();
-     CGContextSaveGState(context);
-
-     // Draw picture first
-     //
-     CGContextDrawImage(context, self.frame, self.image.CGImage);
-
-     // Blend mode could be any of CGBlendMode values. Now draw filled rectangle
-     // over top of image.
-     //
-     CGContextSetBlendMode (context, kCGBlendModeMultiply);
-     CGContextSetFillColor(context, CGColorGetComponents(self.overlayColor.CGColor));
-     CGContextFillRect (context, self.bounds);
-     CGContextRestoreGState(context);
- */
+        return unitNode
+    }
 
     // MARK: IBAction handlers
 
@@ -218,18 +205,19 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             return
         }
 
-        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-        plane.materials.first?.diffuse.contents = UIImage(named: "honeycomb_texture")
+        let planeGeometry = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+        planeGeometry.materials.first?.diffuse.contents = UIImage(named: "honeycomb_texture")
+        planeGeometry.materials.first?.transparent.contents = UIColor(white: 0.0, alpha: 0.8)
 
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.categoryBitMask |= horizontalPlaneCategoryMask
+        let plane = SCNNode(geometry: planeGeometry)
+        plane.categoryBitMask |= horizontalPlaneCategoryMask
 
-        planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
-        planeNode.eulerAngles.x = -.pi / 2
+        plane.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
+        plane.eulerAngles.x = -.pi / 2
 
-        node.addChildNode(planeNode)
+        node.addChildNode(plane)
 
-        horizontalPlanes.append(planeNode)
+        horizontalPlanes.append(plane)
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
@@ -303,6 +291,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        game = Game(addGeometryCallback: { [weak self] (color, gridCoordinates) -> AnyObject in
+            return self!.handleAddGeometry(color: color, gridCoordinates: gridCoordinates)
+        })
+
         // Load our resources
         loadResources()
 
@@ -324,8 +316,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
 
-        sceneView.autoenablesDefaultLighting = true
-        sceneView.automaticallyUpdatesLighting = true
+//        sceneView.autoenablesDefaultLighting = true
+//        sceneView.automaticallyUpdatesLighting = true
 
         // Enable debug visualization helpers
 //        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]

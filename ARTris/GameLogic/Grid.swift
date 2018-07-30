@@ -68,6 +68,17 @@ class Grid {
 
     // MARK: Initializers
 
+    /// Creates a copy of another grid
+    init(grid: Grid) {
+        self.numColumns = grid.numColumns
+        self.numRows = grid.numRows
+
+        self.data = [Unit?](repeating: nil, count: numRows * numColumns)
+        for (i, value) in grid.data.enumerated() {
+            self.data[i] = value
+        }
+    }
+
     /// Creates an empty grid
     init(numColumns: Int, numRows: Int) {
         self.numColumns = numColumns
