@@ -13,8 +13,8 @@ import UIKit
  */
 class Game {
     /// Types of piece movement by user interaction
-    enum Move {
-        case left, right
+    enum Move: Int {
+        case left = -1, right = 1
     }
 
     /// Types of piece rotation by user interaction
@@ -65,9 +65,8 @@ class Game {
 
         // Send a 'add geometry' callback for each unit of the new piece, by translating
         // their coordinates into the Board coordinate space
-        piece.traverse { [weak self] x, y, unit in
-            let boardCoordinates = (x: x + pieceCoordinates.x, y: y + pieceCoordinates.y)
-            unit.object = self?.addGeometryCallback(Piece.colors[piece.kind]!, boardCoordinates)
+        traversePiece { x, y, boardX, boardY, unit in
+            unit.object = self.addGeometryCallback(Piece.colors[piece.kind]!, (x: boardX, y: boardY))
         }
     }
 
@@ -119,12 +118,23 @@ class Game {
     /// (Attempts to) moves the piece left or right, from user interaction.
     func movePiece(direction: Move) {
         log.debug("Move piece: \(direction)")
-        //TODO
+
+        if checkMoveBy(x: direction.rawValue, y: 0) {
+            pieceCoordinates.x += direction.rawValue
+            log.debug("Piece moved to \(pieceCoordinates)")
+
+            // Trigger piece movement in the visuals
+            traversePiece { x, y, boardX, boardY, unit in
+                moveGeometryCallback(unit.object, (x: boardX, y: boardY))
+            }
+        }
     }
 
     /// (Attempts to) rotate the piece, from user interaction.
     func rotatePiece(direction: Rotate) {
         log.debug("Rotate piece: \(direction)")
+
+
         //TODO
     }
 

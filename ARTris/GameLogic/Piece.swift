@@ -13,14 +13,16 @@ import UIKit
  a Grid. There is one Grid per each of the rotations (piece orientations).
  */
 class Piece {
+    typealias RotationFunc = (_ x: Int, _ y: Int) -> (x: Int, y: Int)
+
     /// Piece ('tetromino') types.
     enum Kind {
         case square, i, l, inverseL, s, inverseS
     }
 
     /// Defines all the 4 rotations the pieces can be in
-    enum Rotation: Int {
-        case deg0 = 0, deg90, deg180, deg270
+    enum Rotation {
+        case deg0, deg90, deg180, deg270
     }
 
     /// Size (side length) for all pieces
@@ -32,6 +34,14 @@ class Piece {
     /// All the rotations in order; traversing the array using an ascending index
     /// goes through the rotations in clockwise order.
     private static let rotations: [Rotation] = [.deg0, .deg90, .deg180, .deg270]
+
+    /// Defines mapping between rotation constants and their respective coordinate transform functions
+    private static let rotationFuncs: [Rotation: RotationFunc?] = [
+        .deg0: nil,
+        .deg90: { x, y in return (Piece.size - 1 - y, x) },
+        .deg180: { x, y in return (Piece.size - 1 - x, Piece.size - 1 - y) },
+        .deg270: { x, y in return (y, Piece.size - 1 - x) }
+    ]
 
     /// Piece colors map
     static let colors: [Kind: UIColor] = [
@@ -86,12 +96,12 @@ class Piece {
              ".X.."],
         .l: [".X..",
              ".X..",
-             ".X..",
-             ".XX."],
+             ".XX.",
+             "...."],
         .inverseL: ["..X.",
                     "..X.",
-                    "..X.",
-                    ".XX."],
+                    ".XX.",
+                    "...."],
         .s: ["....",
              ".XX.",
              "XX..",
@@ -122,6 +132,22 @@ class Piece {
     }
 
     // MARK: Public methods
+
+    /// Gets a piece grid rotated by the specified rotation
+    func rotated(rotation: Rotation) -> Grid {
+        let rotatedGrid = Grid(numColumns: originalGrid.numColumns, numRows: originalGrid.numRows)
+        guard let rotateFunc = Piece.rotationFuncs[rotation] as? RotationFunc else {
+            // For .deg0 this is identity function; just return the original grid
+            return originalGrid
+        }
+
+        originalGrid.traverse { x, y, unit -> Void in
+            let (rx, ry) = rotateFunc(x, y)
+            rotatedGrid[rx, ry] = unit
+        }
+
+        return rotatedGrid
+    }
 
     /// Traverses the Piece's rotated grid, calling the callback with x, y, value when there
     /// is a non-nil value for that (x, y) location.

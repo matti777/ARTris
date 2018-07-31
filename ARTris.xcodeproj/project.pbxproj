@@ -12,27 +12,19 @@
 		492A04082101DCE20073CECC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492A04062101DCE20073CECC /* Main.storyboard */; };
 		492A040A2101DCE30073CECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 492A04092101DCE30073CECC /* Assets.xcassets */; };
 		492A040D2101DCE30073CECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492A040B2101DCE30073CECC /* LaunchScreen.storyboard */; };
-		492A04182101DCE30073CECC /* ARTrisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04172101DCE30073CECC /* ARTrisTests.swift */; };
-		492A04232101DCE30073CECC /* ARTrisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04222101DCE30073CECC /* ARTrisUITests.swift */; };
 		492A04342101DF790073CECC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04332101DF790073CECC /* MenuViewController.swift */; };
 		492A04352101DF790073CECC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04332101DF790073CECC /* MenuViewController.swift */; };
-		492A04362101DF790073CECC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04332101DF790073CECC /* MenuViewController.swift */; };
 		492A04382101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
 		492A04392101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
-		492A043A2101DFF00073CECC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 492A04372101DFF00073CECC /* Podfile */; };
 		492A043C2101E4E50073CECC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04042101DCE20073CECC /* GameViewController.swift */; };
 		492A0443210237B60073CECC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0442210237B60073CECC /* Unit.swift */; };
 		492A0444210237B60073CECC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0442210237B60073CECC /* Unit.swift */; };
-		492A0445210237B60073CECC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0442210237B60073CECC /* Unit.swift */; };
 		492A04472102390A0073CECC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04462102390A0073CECC /* Grid.swift */; };
 		492A04482102390A0073CECC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04462102390A0073CECC /* Grid.swift */; };
-		492A04492102390A0073CECC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04462102390A0073CECC /* Grid.swift */; };
 		492A044B2102493B0073CECC /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044A2102493B0073CECC /* Piece.swift */; };
 		492A044C2102493B0073CECC /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044A2102493B0073CECC /* Piece.swift */; };
-		492A044D2102493B0073CECC /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A044A2102493B0073CECC /* Piece.swift */; };
 		492A045321036DFC0073CECC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045221036DFC0073CECC /* Game.swift */; };
 		492A045421036DFC0073CECC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045221036DFC0073CECC /* Game.swift */; };
-		492A045521036DFC0073CECC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045221036DFC0073CECC /* Game.swift */; };
 		492A0459210CC7520073CECC /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0458210CC7520073CECC /* Board.swift */; };
 		492A045A210CC7520073CECC /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0458210CC7520073CECC /* Board.swift */; };
 		492A045C210CC8450073CECC /* BoardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045B210CC8450073CECC /* BoardNode.swift */; };
@@ -41,21 +33,14 @@
 		492A0460210E35A10073CECC /* SceneKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045E210E35A10073CECC /* SceneKitUtils.swift */; };
 		492A0462210EFB600073CECC /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0461210EFB600073CECC /* UnitNode.swift */; };
 		492A0463210EFB600073CECC /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0461210EFB600073CECC /* UnitNode.swift */; };
-		492A0465210EFF2D0073CECC /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0464210EFF2D0073CECC /* Types.swift */; };
-		492A0466210EFF2D0073CECC /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0464210EFF2D0073CECC /* Types.swift */; };
+		49AAD0EE2110752D005F2049 /* PieceTessts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AAD0ED2110752D005F2049 /* PieceTessts.swift */; };
+		49AAD0EF2110823C005F2049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04002101DCE20073CECC /* AppDelegate.swift */; };
 		788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */; };
 		9DAB607745449C5761CD46F0 /* Pods_ARTris.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32733644E60497B96BF72AA /* Pods_ARTris.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		492A04142101DCE30073CECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 492A03F52101DCE20073CECC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 492A03FC2101DCE20073CECC;
-			remoteInfo = ARTris;
-		};
-		492A041F2101DCE30073CECC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 492A03F52101DCE20073CECC /* Project object */;
 			proxyType = 1;
@@ -75,9 +60,7 @@
 		492A040C2101DCE30073CECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		492A040E2101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		492A04132101DCE30073CECC /* ARTrisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARTrisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		492A04172101DCE30073CECC /* ARTrisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTrisTests.swift; sourceTree = "<group>"; };
 		492A04192101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		492A041E2101DCE30073CECC /* ARTrisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARTrisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		492A04222101DCE30073CECC /* ARTrisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTrisUITests.swift; sourceTree = "<group>"; };
 		492A04242101DCE30073CECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		492A04332101DF790073CECC /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -90,10 +73,13 @@
 		492A045B210CC8450073CECC /* BoardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardNode.swift; sourceTree = "<group>"; };
 		492A045E210E35A10073CECC /* SceneKitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitUtils.swift; sourceTree = "<group>"; };
 		492A0461210EFB600073CECC /* UnitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitNode.swift; sourceTree = "<group>"; };
-		492A0464210EFF2D0073CECC /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		49AAD0ED2110752D005F2049 /* PieceTessts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTessts.swift; sourceTree = "<group>"; };
 		76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.release.xcconfig"; sourceTree = "<group>"; };
 		88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests.release.xcconfig"; sourceTree = "<group>"; };
 		AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTrisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB493BF8AA5504E189CFE324 /* Pods-ARTrisUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisUITests/Pods-ARTrisUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C2964DCCAB0DC7C4B3D4B626 /* Pods_ARTrisUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTrisUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2F32E1175DC7BAAFCCA927F /* Pods-ARTrisUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisUITests/Pods-ARTrisUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E32733644E60497B96BF72AA /* Pods_ARTris.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARTris.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F646A1DA092A51BBAEBEA906 /* Pods-ARTris.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,13 +98,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		492A041B2101DCE30073CECC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +121,6 @@
 			children = (
 				492A03FD2101DCE20073CECC /* ARTris.app */,
 				492A04132101DCE30073CECC /* ARTrisTests.xctest */,
-				492A041E2101DCE30073CECC /* ARTrisUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,7 +144,7 @@
 		492A04162101DCE30073CECC /* ARTrisTests */ = {
 			isa = PBXGroup;
 			children = (
-				492A04172101DCE30073CECC /* ARTrisTests.swift */,
+				49AAD0ED2110752D005F2049 /* PieceTessts.swift */,
 				492A04192101DCE30073CECC /* Info.plist */,
 			);
 			path = ARTrisTests;
@@ -217,7 +195,6 @@
 				492A044A2102493B0073CECC /* Piece.swift */,
 				492A045221036DFC0073CECC /* Game.swift */,
 				492A0458210CC7520073CECC /* Board.swift */,
-				492A0464210EFF2D0073CECC /* Types.swift */,
 			);
 			path = GameLogic;
 			sourceTree = "<group>";
@@ -229,6 +206,8 @@
 				76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */,
 				44D3FD417CE32670A2A21844 /* Pods-ARTrisTests.debug.xcconfig */,
 				88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */,
+				E2F32E1175DC7BAAFCCA927F /* Pods-ARTrisUITests.debug.xcconfig */,
+				BB493BF8AA5504E189CFE324 /* Pods-ARTrisUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -238,6 +217,7 @@
 			children = (
 				E32733644E60497B96BF72AA /* Pods_ARTris.framework */,
 				AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */,
+				C2964DCCAB0DC7C4B3D4B626 /* Pods_ARTrisUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -285,24 +265,6 @@
 			productReference = 492A04132101DCE30073CECC /* ARTrisTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		492A041D2101DCE30073CECC /* ARTrisUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 492A042D2101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTrisUITests" */;
-			buildPhases = (
-				492A041A2101DCE30073CECC /* Sources */,
-				492A041B2101DCE30073CECC /* Frameworks */,
-				492A041C2101DCE30073CECC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				492A04202101DCE30073CECC /* PBXTargetDependency */,
-			);
-			name = ARTrisUITests;
-			productName = ARTrisUITests;
-			productReference = 492A041E2101DCE30073CECC /* ARTrisUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -317,10 +279,6 @@
 						CreatedOnToolsVersion = 9.4.1;
 					};
 					492A04122101DCE30073CECC = {
-						CreatedOnToolsVersion = 9.4.1;
-						TestTargetID = 492A03FC2101DCE20073CECC;
-					};
-					492A041D2101DCE30073CECC = {
 						CreatedOnToolsVersion = 9.4.1;
 						TestTargetID = 492A03FC2101DCE20073CECC;
 					};
@@ -341,7 +299,6 @@
 			targets = (
 				492A03FC2101DCE20073CECC /* ARTris */,
 				492A04122101DCE30073CECC /* ARTrisTests */,
-				492A041D2101DCE30073CECC /* ARTrisUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -364,14 +321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				492A04392101DFF00073CECC /* Podfile in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		492A041C2101DCE30073CECC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				492A043A2101DFF00073CECC /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,7 +435,6 @@
 				492A0443210237B60073CECC /* Unit.swift in Sources */,
 				492A0462210EFB600073CECC /* UnitNode.swift in Sources */,
 				492A045321036DFC0073CECC /* Game.swift in Sources */,
-				492A0465210EFF2D0073CECC /* Types.swift in Sources */,
 				492A0459210CC7520073CECC /* Board.swift in Sources */,
 				492A044B2102493B0073CECC /* Piece.swift in Sources */,
 				492A043C2101E4E50073CECC /* GameViewController.swift in Sources */,
@@ -502,30 +450,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49AAD0EF2110823C005F2049 /* AppDelegate.swift in Sources */,
 				492A0444210237B60073CECC /* Unit.swift in Sources */,
-				492A04182101DCE30073CECC /* ARTrisTests.swift in Sources */,
 				492A045D210CC8450073CECC /* BoardNode.swift in Sources */,
 				492A044C2102493B0073CECC /* Piece.swift in Sources */,
 				492A04352101DF790073CECC /* MenuViewController.swift in Sources */,
 				492A04482102390A0073CECC /* Grid.swift in Sources */,
-				492A0466210EFF2D0073CECC /* Types.swift in Sources */,
 				492A045421036DFC0073CECC /* Game.swift in Sources */,
+				49AAD0EE2110752D005F2049 /* PieceTessts.swift in Sources */,
 				492A0460210E35A10073CECC /* SceneKitUtils.swift in Sources */,
 				492A045A210CC7520073CECC /* Board.swift in Sources */,
 				492A0463210EFB600073CECC /* UnitNode.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		492A041A2101DCE30073CECC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				492A0445210237B60073CECC /* Unit.swift in Sources */,
-				492A04232101DCE30073CECC /* ARTrisUITests.swift in Sources */,
-				492A044D2102493B0073CECC /* Piece.swift in Sources */,
-				492A04362101DF790073CECC /* MenuViewController.swift in Sources */,
-				492A04492102390A0073CECC /* Grid.swift in Sources */,
-				492A045521036DFC0073CECC /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,11 +471,6 @@
 			isa = PBXTargetDependency;
 			target = 492A03FC2101DCE20073CECC /* ARTris */;
 			targetProxy = 492A04142101DCE30073CECC /* PBXContainerItemProxy */;
-		};
-		492A04202101DCE30073CECC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 492A03FC2101DCE20073CECC /* ARTris */;
-			targetProxy = 492A041F2101DCE30073CECC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -720,7 +650,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 44D3FD417CE32670A2A21844 /* Pods-ARTrisTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
@@ -742,7 +671,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2RLYKMD3U8;
@@ -757,46 +685,6 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARTris.app/ARTris";
-			};
-			name = Release;
-		};
-		492A042E2101DCE30073CECC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2RLYKMD3U8;
-				INFOPLIST_FILE = ARTrisUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ARTris;
-			};
-			name = Debug;
-		};
-		492A042F2101DCE30073CECC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2RLYKMD3U8;
-				INFOPLIST_FILE = ARTrisUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = fi.qvik.ARTrisUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ARTris;
 			};
 			name = Release;
 		};
@@ -826,15 +714,6 @@
 			buildConfigurations = (
 				492A042B2101DCE30073CECC /* Debug */,
 				492A042C2101DCE30073CECC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		492A042D2101DCE30073CECC /* Build configuration list for PBXNativeTarget "ARTrisUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				492A042E2101DCE30073CECC /* Debug */,
-				492A042F2101DCE30073CECC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

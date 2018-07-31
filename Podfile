@@ -17,6 +17,6 @@ target 'ARTris' do
 end
 
 target 'ARTrisTests' do
-  all_pods
+    all_pods
 end
 

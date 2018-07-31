@@ -23,7 +23,7 @@ class Board: Grid {
      - returns true if there is a conflict
      */
     func conflicts(other: Grid, location: GridCoordinates) -> Bool {
-        return (other.traverse { x, y, _ in
+        return other.traverse { x, y, _ in
             // Translate the other grid's (x, y) into this Board's coordinate space
             let pos = (x: x + location.x, y: y + location.y)
 
@@ -38,7 +38,7 @@ class Board: Grid {
             }
 
             return false
-        }) as? Bool ?? false
+        }
     }
 
     /// Constructs an empty board

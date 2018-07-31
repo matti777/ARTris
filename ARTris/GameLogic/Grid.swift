@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// 2D coordinates, typically within a Grid
+typealias GridCoordinates = (x: Int, y: Int)
+
 /**
  A Grid stores game pice Units to form a falling piece or parts of already
  fallen pieces ('static units').
@@ -18,6 +21,9 @@ import Foundation
  Grid contains collision detection logic.
  */
 class Grid {
+    typealias TraverseBoolCallback = (Int, Int, Unit) -> Bool
+    typealias TraverseVoidCallback = (Int, Int, Unit) -> Void
+
     /// Number of columns in the grid (width in Units)
     private(set) var numColumns: Int
 
@@ -40,37 +46,35 @@ class Grid {
      Traverses the entire grid, calling the callback with x, y, value when there
      is a non-nil value for that (x, y) location.
 
-     - parameter callback: closure to be called for each non-nil unit in the grid. Whatever
-     this closure returns, this method will return.
-     - returns whatever the callback returned
+     - parameter callback: closure to be called for each non-nil unit in the grid. If the
+     callback returns true, the traversing will be aborted and true will be returned from this method.
+     - returns whatever true if the traversing was aborted.
      */
     @discardableResult
-    func traverse(callback: (_ x: Int, _ y: Int, _ unit: Unit) -> Any) -> Any {
+    func traverse(callback: TraverseBoolCallback) -> Bool {
         for y in 0..<numRows {
             for x in 0..<numColumns {
                 if let unit = self[x, y] {
-                    return callback(x, y, unit)
+                    if callback(x, y, unit) {
+                        return true
+                    }
                 }
             }
         }
 
-        return 0
+        return false
+    }
+
+    func traverse(callback: TraverseVoidCallback) {
+        traverse { x, y, unit -> Bool in
+            callback(x, y, unit)
+            return false
+        }
     }
 
     /// Returns an ascii art describing the grid.
     func asciiArt() -> String {
-        var s = ""
-
-        for y in 0..<numRows {
-            for x in 0..<numColumns {
-                let value = (data[y * numColumns + x] != nil) ? "#" : "."
-                s = "\(s)\(value)"
-            }
-
-            s = "\(s)\n"
-        }
-
-        return s
+        return data.map { $0 != nil ? "#" : "." }.joined().splitEqually(length: Piece.size).joined(separator: "\n")
     }
 
     // MARK: Operator overloads
