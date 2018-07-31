@@ -35,10 +35,13 @@ class Game {
     private var pieceCoordinates: GridCoordinates!
 
     /// Callback for adding new unit node geometry
-    private var addGeometryCallback: (UIColor, GridCoordinates) -> AnyObject
+    var addGeometryCallback: ((UIColor, GridCoordinates) -> AnyObject)!
 
     /// Callback for moving existing geometry to new position
-    private var moveGeometryCallback: (AnyObject, GridCoordinates) -> Void
+    var moveGeometryCallback: ((AnyObject, GridCoordinates) -> Void)!
+
+    /// Callback for Game Over
+    var gameOverCallback: (() -> Void)!
 
     // MARK: Private methods
 
@@ -61,7 +64,7 @@ class Game {
         log.debug("New falling piece:\n\(piece!.asciiArt())")
 
         // Place the piece in the middle of the board in x-direction, and just above the top
-        pieceCoordinates = (x: (board.numColumns - Piece.size) / 2, y: -(Piece.size - piece.bottomMargin))
+        pieceCoordinates = (x: (board.numColumns - Piece.size) / 2, y: -(Piece.size - piece.margins.bottom))
 
         // Send a 'add geometry' callback for each unit of the new piece, by translating
         // their coordinates into the Board coordinate space
@@ -77,9 +80,9 @@ class Game {
      - parameter y: amount to move along the y axis
      - returns true if the move is ok
     */
-    func checkMoveBy(x: Int, y: Int) -> Bool {
+    func canMoveBy(x: Int, y: Int) -> Bool {
         let newPosition = (x: pieceCoordinates.x + x, y: pieceCoordinates.y + y)
-        return board.conflicts(other: piece.grid, location: newPosition)
+        return !board.conflicts(other: piece.grid, location: newPosition)
     }
 
     /// Advances the falling of the current piece; checks if the piece has come to a
@@ -88,8 +91,15 @@ class Game {
     /// falling piece should be allocated.
     func timerTick() {
         // Check if we can move one row down
-        if !checkMoveBy(x: 0, y: 1) {
-            //TODO handle game over
+        if !canMoveBy(x: 0, y: 1) {
+            // Check for 'game over'; that is, if the piece landed even partly over the top of the board
+            if (pieceCoordinates.y + piece.margins.top) < 0 {
+                log.debug("** GAME OVER **")
+                timer.invalidate()
+                timer = nil
+                gameOverCallback()
+                return
+            }
 
             // The piece has 'landed' ie. it will become static part of the board.
             traversePiece { x, y, boardX, boardY, unit in
@@ -119,7 +129,7 @@ class Game {
     func movePiece(direction: Move) {
         log.debug("Move piece: \(direction)")
 
-        if checkMoveBy(x: direction.rawValue, y: 0) {
+        if canMoveBy(x: direction.rawValue, y: 0) {
             pieceCoordinates.x += direction.rawValue
             log.debug("Piece moved to \(pieceCoordinates)")
 
@@ -157,8 +167,6 @@ class Game {
     // MARK: Initializers
 
     /// Creates a new game
-    init(addGeometryCallback: @escaping ((UIColor, GridCoordinates) -> AnyObject), moveGeometryCallback: @escaping (AnyObject, GridCoordinates) -> Void) {
-        self.addGeometryCallback = addGeometryCallback
-        self.moveGeometryCallback = moveGeometryCallback
+    init() {
     }
 }

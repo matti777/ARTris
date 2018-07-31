@@ -21,6 +21,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Close button
     @IBOutlet private var closeButton: UIButton!
 
+    /// Game over text
+    @IBOutlet private var gameOverTextLabel: UILabel!
+
     /// Defines hit test category for the detected horizontal planes
     private let horizontalPlaneCategoryMask: Int = (1 << 30)
 
@@ -99,6 +102,27 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             targetPlaneGeometry.materials = [notAllowedMaterial]
         } else {
             targetPlaneGeometry.materials = [targetMaterial]
+        }
+    }
+
+    /// Sets up the Game object and its callbacks
+    private func createGame() {
+        game = Game()
+        game.addGeometryCallback = { [weak self] color, boardCoordinates -> AnyObject in
+            return self!.handleAddGeometry(color: color, boardCoordinates: boardCoordinates)
+        }
+        game.moveGeometryCallback = { [weak self] object, boardCoordinates -> Void in
+            if let strongSelf = self, let unitNode = object as? UnitNode {
+                strongSelf.handleMoveGeometry(unitNode: unitNode, boardCoordinates: boardCoordinates)
+            }
+        }
+        game.gameOverCallback = { [weak self] in
+            let strokeTextAttributes: [NSAttributedStringKey : Any] = [
+                NSAttributedStringKey.strokeColor : UIColor.black,
+                NSAttributedStringKey.foregroundColor : UIColor.white,
+                NSAttributedStringKey.strokeWidth : -2.0,
+                ]
+            self?.gameOverTextLabel.attributedText = NSAttributedString(string: "Game Over", attributes: strokeTextAttributes)
         }
     }
 
@@ -232,7 +256,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// Moves the given unit node into new position, possibly with animation.
     func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates) {
-        log.debug("moving geometry")
         //TODO support animation
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
     }
@@ -336,13 +359,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        game = Game(addGeometryCallback: { [weak self] color, boardCoordinates -> AnyObject in
-            return self!.handleAddGeometry(color: color, boardCoordinates: boardCoordinates)
-            }, moveGeometryCallback: { [weak self] object, boardCoordinates -> Void in
-                if let strongSelf = self, let unitNode = object as? UnitNode {
-                    strongSelf.handleMoveGeometry(unitNode: unitNode, boardCoordinates: boardCoordinates)
-                }
-        })
+        gameOverTextLabel.text = nil
+
+        // Set up the Game engine
+        createGame()
 
         // Load our resources
         loadResources()

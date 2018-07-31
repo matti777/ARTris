@@ -113,12 +113,20 @@
                                     <action selector="closeButtonPressedWithSender:" destination="BV1-FR-VrT" eventType="touchUpInside" id="DPH-GH-fGz"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSP-ET-CL2">
+                                <rect key="frame" x="70" y="301" width="236.5" height="65.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="55"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uq5-3Z-hAJ" firstAttribute="leading" secondItem="J86-YL-T69" secondAttribute="leading" constant="15" id="9Ec-EW-LO3"/>
+                            <constraint firstItem="bSP-ET-CL2" firstAttribute="centerX" secondItem="nmK-lK-gk9" secondAttribute="centerX" id="Suf-l8-kXr"/>
                             <constraint firstItem="WDX-dM-Uxh" firstAttribute="top" secondItem="J86-YL-T69" secondAttribute="top" id="X8J-w0-j8H"/>
                             <constraint firstItem="J86-YL-T69" firstAttribute="bottom" secondItem="WDX-dM-Uxh" secondAttribute="bottom" id="dqn-Lt-oQE"/>
+                            <constraint firstItem="bSP-ET-CL2" firstAttribute="centerY" secondItem="nmK-lK-gk9" secondAttribute="centerY" id="gec-8Q-n3x"/>
                             <constraint firstItem="J86-YL-T69" firstAttribute="trailing" secondItem="WDX-dM-Uxh" secondAttribute="trailing" id="lqb-E2-vZu"/>
                             <constraint firstItem="uq5-3Z-hAJ" firstAttribute="top" secondItem="J86-YL-T69" secondAttribute="top" constant="15" id="qy1-7q-io6"/>
                             <constraint firstItem="WDX-dM-Uxh" firstAttribute="leading" secondItem="J86-YL-T69" secondAttribute="leading" id="vWG-SP-3x2"/>
@@ -128,6 +136,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="closeButton" destination="uq5-3Z-hAJ" id="aAi-ra-5oO"/>
+                        <outlet property="gameOverTextLabel" destination="bSP-ET-CL2" id="UXY-Rd-Kzr"/>
                         <outlet property="sceneView" destination="WDX-dM-Uxh" id="Vav-yS-cQN"/>
                     </connections>
                 </viewController>

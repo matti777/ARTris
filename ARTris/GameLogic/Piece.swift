@@ -70,19 +70,25 @@ class Piece {
     /// Current rotation (index to the rotations -array)
     private var rotationIndex = 0
 
-    /// Returns the number of empty rows in the bottom of the grid
-    var bottomMargin: Int {
-        for i in 0..<Piece.size {
-            let y = (Piece.size - 1) - i
-            for x in 0..<Piece.size where self[x, y] != nil {
-                return i
-            }
-        }
+    /// Margins of the current rotated grid
+    var margins: GridMargins!
 
-        return Piece.size
-    }
+    /// Returns the number of empty rows in the bottom of the grid
+//    var bottomMargin: Int {
+//        for i in 0..<Piece.size {
+//            let y = (Piece.size - 1) - i
+//            for x in 0..<Piece.size where self[x, y] != nil {
+//                return i
+//            }
+//        }
+//
+//        return Piece.size
+//    }
 
     // MARK: Private methods
+
+    private func calculateGridMargins() {
+    }
 
     // All the piece shapes (in their 0-degree rotation) in parseable ascii art format
     private static let shapes: [Kind: [String]] = [
@@ -133,6 +139,15 @@ class Piece {
 
     // MARK: Public methods
 
+    /// Sets the current rotation of the piece
+    func setRotation(rotationIndex: Int, rotatedGrid: Grid) {
+        assert((rotationIndex >= 0) && (rotationIndex < Piece.rotations.count), "Bad rotationIndex")
+
+        self.rotationIndex = rotationIndex
+        self.rotatedGrid = rotatedGrid
+        self.margins = rotatedGrid.margins()
+    }
+
     /// Gets a piece grid rotated by the specified rotation
     func rotated(rotation: Rotation) -> Grid {
         let rotatedGrid = Grid(numColumns: originalGrid.numColumns, numRows: originalGrid.numRows)
@@ -173,5 +188,7 @@ class Piece {
 
         originalGrid = Piece.parseShape(kind: kind)
         rotatedGrid = Grid(grid: originalGrid)
+
+        setRotation(rotationIndex: rotationIndex, rotatedGrid: rotatedGrid)
     }
 }

@@ -27,7 +27,7 @@ class UnitNode: SCNNode {
 
         let geometry = SCNBox(width: size, height: size, length: size, chamferRadius: 0)
         geometry.materials.first?.diffuse.contents = color
-        geometry.materials.first?.transparent.contents = UIColor(white: 0, alpha: 0.75)
+        geometry.materials.first?.transparent.contents = UIColor(white: 0, alpha: 0.8)
         self.geometry = geometry
     }
 

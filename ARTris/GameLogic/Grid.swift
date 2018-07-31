@@ -11,6 +11,10 @@ import Foundation
 /// 2D coordinates, typically within a Grid
 typealias GridCoordinates = (x: Int, y: Int)
 
+/// 'Margin' of a grid, in number of 'units' ie. number of empty rows/columns
+/// on each edge of the grid
+typealias GridMargins = (top: Int, bottom: Int)
+
 /**
  A Grid stores game pice Units to form a falling piece or parts of already
  fallen pieces ('static units').
@@ -70,6 +74,19 @@ class Grid {
             callback(x, y, unit)
             return false
         }
+    }
+
+    /// Finds the margins of the Grid
+    func margins() -> GridMargins {
+        var minY = numRows
+        var maxY = -1
+
+        traverse { _, y, _ -> Void in
+            minY = min(minY, y)
+            maxY = max(maxY, y)
+        }
+
+        return (top: minY, bottom: (numRows - 1 - maxY))
     }
 
     /// Returns an ascii art describing the grid.

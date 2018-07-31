@@ -27,6 +27,11 @@ class Board: Grid {
             // Translate the other grid's (x, y) into this Board's coordinate space
             let pos = (x: x + location.x, y: y + location.y)
 
+            // If the piece is over the top of the board, that is always fine
+            if pos.y < 0 {
+                return false
+            }
+
             // Going over the left/right edges and the bottom is considered a
             // conflict; however, the piece grid being over the board's top is fine
             if (pos.x < 0) || (pos.x >= numColumns) || (pos.y >= numRows) {
