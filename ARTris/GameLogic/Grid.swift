@@ -36,16 +36,25 @@ class Grid {
 
     // MARK: Public methods
 
-    /// Traverses the entire grid, calling the callback with x, y, value when there
-    /// is a non-nil value for that (x, y) location.
-    func traverse(callback: (_ x: Int, _ y: Int, _ unit: Unit) -> Void) {
+    /**
+     Traverses the entire grid, calling the callback with x, y, value when there
+     is a non-nil value for that (x, y) location.
+
+     - parameter callback: closure to be called for each non-nil unit in the grid. Whatever
+     this closure returns, this method will return.
+     - returns whatever the callback returned
+     */
+    @discardableResult
+    func traverse(callback: (_ x: Int, _ y: Int, _ unit: Unit) -> Any) -> Any {
         for y in 0..<numRows {
             for x in 0..<numColumns {
                 if let unit = self[x, y] {
-                    callback(x, y, unit)
+                    return callback(x, y, unit)
                 }
             }
         }
+
+        return 0
     }
 
     /// Returns an ascii art describing the grid.

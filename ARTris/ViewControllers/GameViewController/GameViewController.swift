@@ -90,7 +90,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     private func updateTargetPlane(coordinates: SCNVector3) {
         guard let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let panPlaneGeometry = targetPlane.parent?.geometry as? SCNPlane else {
-            log.error("Invalid target / pan plane")
+            log.error("** Invalid target / pan plane **")
             return
         }
 
@@ -107,12 +107,29 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         } else {
             targetPlaneGeometry.materials = [targetMaterial]
         }
-        log.debug("Updated targetPlane")
+    }
+
+    /// Place the game board onto the selected plane / location and start the game.
+    /// Also register the gesture recognizers required to control the game.
+    private func startGame(worldCoordinates: SCNVector3, unitSize: CGFloat, pointOfView: SCNNode) {
+        boardNode = BoardNode(board: game.board, unitSize: unitSize)
+        boardNode.position = worldCoordinates
+
+        // Turn the board so that it faces the camera - just dont rotate it
+        // in the Y direction so that it will stand straight
+        let lookAtPoint = SCNVector3(x: pointOfView.worldPosition.x, y: boardNode.worldPosition.y, z: pointOfView.worldPosition.z)
+        boardNode.look(at: lookAtPoint, up: boardNode.worldUp, localFront: SCNVector3(x: 0, y: 0, z: 1))
+
+        sceneView.scene.rootNode.addChildNode(boardNode)
+        game.start()
+
+        // Stop recognizing panning as now the game is on
+        self.sceneView.removeGestureRecognizer(self.panRecognizer)
+        self.panRecognizer = nil
+
     }
 
     private func panBegan(recognizer: UIGestureRecognizer) {
-        log.debug("pan began")
-
         assert(targetPlane == nil, "targetPlane must not exist at this point")
         assert(infinitePanPlane == nil, "infinitePanPlane must not be set at this point")
 
@@ -157,20 +174,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     private func panEnded(recognizer: UIGestureRecognizer) {
         if let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let hitResult = hitTest(recognizer: recognizer, hitBitMask: infinitePlaneCategoryMask), let pov = sceneView.pointOfView {
 
-            boardNode = BoardNode(board: game.board, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns))
-            boardNode.position = hitResult.worldCoordinates
-
-            // Turn the board so that it faces the camera - just dont rotate it
-            // in the Y direction so that it will stand straight
-            let lookAtPoint = SCNVector3(x: pov.worldPosition.x, y: boardNode.worldPosition.y, z: pov.worldPosition.z)
-            boardNode.look(at: lookAtPoint, up: boardNode.worldUp, localFront: SCNVector3(x: 0, y: 0, z: 1))
-
-            sceneView.scene.rootNode.addChildNode(boardNode)
-            game.start()
-
-            // Stop recognizing panning as now the game is on
-            self.sceneView.removeGestureRecognizer(self.panRecognizer)
-            self.panRecognizer = nil
+            startGame(worldCoordinates: hitResult.worldCoordinates, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns), pointOfView: pov)
         }
 
         targetPlane?.removeFromParentNode()
@@ -190,6 +194,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         boardNode.addChildNode(unitNode)
 
         return unitNode
+    }
+
+    /// Moves the given unit node into new position, possibly with animation.
+    func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates) {
+        log.debug("moving geometry")
+        //TODO support animation
+        unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
     }
 
     // MARK: IBAction handlers
@@ -293,6 +304,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
         game = Game(addGeometryCallback: { [weak self] color, boardCoordinates -> AnyObject in
             return self!.handleAddGeometry(color: color, boardCoordinates: boardCoordinates)
+            }, moveGeometryCallback: { [weak self] object, boardCoordinates -> Void in
+                if let strongSelf = self, let unitNode = object as? UnitNode {
+                    strongSelf.handleMoveGeometry(unitNode: unitNode, boardCoordinates: boardCoordinates)
+                }
         })
 
         // Load our resources
@@ -316,14 +331,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
 
-//        sceneView.autoenablesDefaultLighting = true
-//        sceneView.automaticallyUpdatesLighting = true
-
         // Enable debug visualization helpers
-//        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+//        sceneView.showsStatistics = true
 
         // Create a session configuration
         arConfig = ARWorldTrackingConfiguration()

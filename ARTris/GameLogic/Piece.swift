@@ -15,7 +15,7 @@ import UIKit
 class Piece {
     /// Piece ('tetromino') types.
     enum Kind {
-        case square, i
+        case square, i, l, inverseL, s, inverseS
     }
 
     /// Defines all the 4 rotations the pieces can be in
@@ -26,6 +26,9 @@ class Piece {
     /// Size (side length) for all pieces
     static let size = 4
 
+    /// All Kinds
+    static let kinds: [Kind] = [.square, .i, .l, .inverseL, .s, .inverseS]
+
     /// All the rotations in order; traversing the array using an ascending index
     /// goes through the rotations in clockwise order.
     private static let rotations: [Rotation] = [.deg0, .deg90, .deg180, .deg270]
@@ -34,19 +37,28 @@ class Piece {
     static let colors: [Kind: UIColor] = [
         .square: UIColor(hexString: "#2DFEFE"),
         .i: UIColor(hexString: "#FD29FC"),
+        .l: UIColor(hexString: "#FDA429"),
+        .inverseL: UIColor(hexString: "#7F25FB"),
+        .s: UIColor(hexString: "#7F25FB"),
+        .inverseS: UIColor(hexString: "#7F7F17")
     ]
 
     /// Type of this piece
     var kind: Kind
 
+    /// Representational grid for this piece. This is effectively the rotated grid.
+    var grid: Grid {
+        return rotatedGrid
+    }
+
     /// Piece as a Grid, in 0-degree rotation
-    private var grid: Grid
+    private var originalGrid: Grid
 
     // Piece as a Grid, in its current rotation
     private var rotatedGrid: Grid
 
-    /// Current rotation
-    private var rotation: Rotation = .deg0
+    /// Current rotation (index to the rotations -array)
+    private var rotationIndex = 0
 
     /// Returns the number of empty rows in the bottom of the grid
     var bottomMargin: Int {
@@ -71,7 +83,23 @@ class Piece {
         .i: [".X..",
              ".X..",
              ".X..",
-             ".X.."]
+             ".X.."],
+        .l: [".X..",
+             ".X..",
+             ".X..",
+             ".XX."],
+        .inverseL: ["..X.",
+                    "..X.",
+                    "..X.",
+                    ".XX."],
+        .s: ["....",
+             ".XX.",
+             "XX..",
+             "...."],
+        .inverseS: ["....",
+                    ".XX.",
+                    "..XX",
+                    "...."],
     ]
 
     /// Creates a new Grid for a given piece type.
@@ -103,7 +131,7 @@ class Piece {
 
     /// Accesses the current rotation of the Piece's Grid
     subscript(x: Int, y: Int) -> Unit? {
-        return rotatedGrid[x, y]
+        return grid[x, y]
     }
 
     /// Returns an ascii art describing all the rotations (grids) for this piece
@@ -117,7 +145,7 @@ class Piece {
     init(kind: Kind) {
         self.kind = kind
 
-        grid = Piece.parseShape(kind: kind)
-        rotatedGrid = Grid(grid: grid)
+        originalGrid = Piece.parseShape(kind: kind)
+        rotatedGrid = Grid(grid: originalGrid)
     }
 }
