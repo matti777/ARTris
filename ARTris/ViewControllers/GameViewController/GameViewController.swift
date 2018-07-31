@@ -43,19 +43,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// `panPlane`
     private var panRecognizer: UIPanGestureRecognizer!
 
-    /// The horizontal plane being currently panned. The `targetPlane` moves
-    /// along this plane.
-//    private var panPlane: SCNNode?
-
     /// Infinite sized plane for panning when selecting the game board location.
     /// The `targetPlane` moves along this plane.
     private var infinitePanPlane: SCNNode?
 
     /// The location selector 'target' plane
     private var targetPlane: SCNNode?
-
-    /// Latest target plane position world coordinates. Nil if not in a proper location.
-//    private var targetPlaneWorldCoordinates: SCNVector3?
 
     /// Green target targetPlane material
     private var targetMaterial = SCNMaterial()
@@ -116,17 +109,58 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         boardNode.position = worldCoordinates
 
         // Turn the board so that it faces the camera - just dont rotate it
-        // in the Y direction so that it will stand straight
+        // in the X direction so that it will stand straight up and not get tilted
         let lookAtPoint = SCNVector3(x: pointOfView.worldPosition.x, y: boardNode.worldPosition.y, z: pointOfView.worldPosition.z)
         boardNode.look(at: lookAtPoint, up: boardNode.worldUp, localFront: SCNVector3(x: 0, y: 0, z: 1))
-
         sceneView.scene.rootNode.addChildNode(boardNode)
-        game.start()
 
-        // Stop recognizing panning as now the game is on
+        // Stop recognizing panning as now the game will be on
         self.sceneView.removeGestureRecognizer(self.panRecognizer)
         self.panRecognizer = nil
 
+        let swipeHandler: (UIGestureRecognizer) -> Void = { [weak self] recognizer in
+            guard let recognizer = recognizer as? UISwipeGestureRecognizer else {
+                return
+            }
+
+            switch recognizer.direction {
+            case .left:
+                self?.game.movePiece(direction: .left)
+            case .right:
+                self?.game.movePiece(direction: .right)
+            case .up:
+                self?.game.rotatePiece(direction: .counterclockwise)
+            case .down:
+                self?.game.rotatePiece(direction: .clockwise)
+            default:
+                break
+            }
+        }
+
+        // Start recognizing swipes left and right to move the piece
+        let swipeLeftRecognizer = UISwipeGestureRecognizer(callback: swipeHandler)
+        swipeLeftRecognizer.direction = .left
+        sceneView.addGestureRecognizer(swipeLeftRecognizer)
+        let swipeRightRecognizer = UISwipeGestureRecognizer(callback: swipeHandler)
+        swipeRightRecognizer.direction = .right
+        sceneView.addGestureRecognizer(swipeRightRecognizer)
+
+        // Start recognizing swipes up and down to rotate the piece
+        let swipeUpRecognizer = UISwipeGestureRecognizer(callback: swipeHandler)
+        swipeUpRecognizer.direction = .up
+        sceneView.addGestureRecognizer(swipeUpRecognizer)
+        let swipeDownRecognizer = UISwipeGestureRecognizer(callback: swipeHandler)
+        swipeDownRecognizer.direction = .down
+        sceneView.addGestureRecognizer(swipeDownRecognizer)
+
+        // Start recognizing taps to drop the piece
+        let tapRecognizer = UITapGestureRecognizer(callback: { [weak self] recognizer in
+            self?.game.dropPiece()
+        })
+        sceneView.addGestureRecognizer(tapRecognizer)
+
+        // Start the game!
+        game.start()
     }
 
     private func panBegan(recognizer: UIGestureRecognizer) {

@@ -12,6 +12,16 @@ import UIKit
  Contains the high-level game logic.
  */
 class Game {
+    /// Types of piece movement by user interaction
+    enum Move {
+        case left, right
+    }
+
+    /// Types of piece rotation by user interaction
+    enum Rotate {
+        case clockwise, counterclockwise
+    }
+
     /// Game board
     private(set) var board = Board()
 
@@ -105,6 +115,24 @@ class Game {
     }
 
     // MARK: Public methods
+
+    /// (Attempts to) moves the piece left or right, from user interaction.
+    func movePiece(direction: Move) {
+        log.debug("Move piece: \(direction)")
+        //TODO
+    }
+
+    /// (Attempts to) rotate the piece, from user interaction.
+    func rotatePiece(direction: Rotate) {
+        log.debug("Rotate piece: \(direction)")
+        //TODO
+    }
+
+    /// Drop the piece down until it lands and stops.
+    func dropPiece() {
+        log.debug("Drop piece")
+        //TODO
+    }
 
     /// Starts a new game.
     func start() {
