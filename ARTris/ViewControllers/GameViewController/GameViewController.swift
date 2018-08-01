@@ -13,6 +13,8 @@ import UIKit
 import QvikSwift
 import Toast_Swift
 
+// swiftlint:disable type_body_length
+
 /** Displays the game board / AR view. */
 class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Our scene view
@@ -21,8 +23,14 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Close button
     @IBOutlet private var closeButton: UIButton!
 
+    /// Dimmer view
+    @IBOutlet private var dimmerView: UIView!
+
     /// Game over text
-    @IBOutlet private var gameOverTextLabel: UILabel!
+    @IBOutlet private var infoLabel: UILabel!
+
+    /// Our help text
+    private let helpText = "Point the camera at horizontal surfaces. When a grid pattern appears, use your finger to place the game board."
 
     /// Defines hit test category for the detected horizontal planes
     private let horizontalPlaneCategoryMask: Int = (1 << 30)
@@ -105,6 +113,51 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
+    /// Shows the help text
+    private func showHelpText() {
+        let strokeTextAttributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.strokeColor: UIColor.black,
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.strokeWidth: -2.0]
+        infoLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 42)!
+        infoLabel.attributedText = NSAttributedString(string: helpText, attributes: strokeTextAttributes)
+
+        dimmerView.alpha = 0.5
+        dimmerView.isHidden = false
+        infoLabel.alpha = 1.0
+
+        let tapRecognizer = UITapGestureRecognizer { [weak self] recognizer in
+            self?.dimmerView.removeGestureRecognizer(recognizer)
+
+            UIView.animate(withDuration: 0.4, animations: {
+                self?.dimmerView.alpha = 0
+                self?.infoLabel.alpha = 0
+            }, completion: { completed in
+                self?.dimmerView.isHidden = true
+            })
+        }
+        dimmerView.addGestureRecognizer(tapRecognizer)
+
+        //TODO timer to get rid of the text too
+    }
+
+    /// Shows the "Game Over" text
+    private func showGameOverText() {
+        let strokeTextAttributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.strokeColor: UIColor.black,
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.strokeWidth: -2.0]
+        infoLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 96)!
+        infoLabel.attributedText = NSAttributedString(string: "Game Over", attributes: strokeTextAttributes)
+
+        dimmerView.isHidden = false
+
+        UIView.animate(withDuration: 0.4) {
+            self.infoLabel.alpha = 1.0
+            self.dimmerView.alpha = 0.5
+        }
+    }
+
     /// Sets up the Game object and its callbacks
     private func createGame() {
         game = Game()
@@ -117,12 +170,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         game.gameOverCallback = { [weak self] in
-            let strokeTextAttributes: [NSAttributedStringKey : Any] = [
-                NSAttributedStringKey.strokeColor : UIColor.black,
-                NSAttributedStringKey.foregroundColor : UIColor.white,
-                NSAttributedStringKey.strokeWidth : -2.0,
-                ]
-            self?.gameOverTextLabel.attributedText = NSAttributedString(string: "Game Over", attributes: strokeTextAttributes)
+            self?.showGameOverText()
         }
     }
 
@@ -341,6 +389,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
         // Run / resumt the view's session
         sceneView.session.run(arConfig)
+
+        showHelpText()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -359,7 +409,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        gameOverTextLabel.text = nil
+        infoLabel.text = nil
 
         // Set up the Game engine
         createGame()

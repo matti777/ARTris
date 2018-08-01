@@ -42,7 +42,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZP-fR-Cx5">
-                                <rect key="frame" x="112.5" y="375.5" width="150" height="55"/>
+                                <rect key="frame" x="112.5" y="383" width="150" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Dju-fm-8Z1"/>
@@ -57,8 +57,8 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tetris fun with ARKit." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Itg-oN-KOs">
-                                <rect key="frame" x="116.5" y="314.5" width="142" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
+                                <rect key="frame" x="88" y="314.5" width="200" height="28.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -98,6 +98,10 @@
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="P8x-gv-Ftc"/>
                                 </connections>
                             </arscnView>
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jha-R8-1cY">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uq5-3Z-hAJ">
                                 <rect key="frame" x="15" y="35" width="42" height="42"/>
                                 <color key="backgroundColor" white="0.92126440718060443" alpha="0.66888632550335569" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -113,9 +117,9 @@
                                     <action selector="closeButtonPressedWithSender:" destination="BV1-FR-VrT" eventType="touchUpInside" id="DPH-GH-fGz"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSP-ET-CL2">
-                                <rect key="frame" x="70" y="301" width="236.5" height="65.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="55"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSP-ET-CL2">
+                                <rect key="frame" x="30" y="220" width="315" height="227"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="96"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -123,11 +127,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uq5-3Z-hAJ" firstAttribute="leading" secondItem="J86-YL-T69" secondAttribute="leading" constant="15" id="9Ec-EW-LO3"/>
+                            <constraint firstItem="J86-YL-T69" firstAttribute="bottom" secondItem="jha-R8-1cY" secondAttribute="bottom" id="9t9-yo-cID"/>
+                            <constraint firstAttribute="trailing" secondItem="bSP-ET-CL2" secondAttribute="trailing" constant="30" id="CUa-zc-G9T"/>
+                            <constraint firstItem="jha-R8-1cY" firstAttribute="top" secondItem="J86-YL-T69" secondAttribute="top" id="DVN-j1-Se0"/>
+                            <constraint firstItem="J86-YL-T69" firstAttribute="trailing" secondItem="jha-R8-1cY" secondAttribute="trailing" id="Mpa-lu-paz"/>
+                            <constraint firstItem="jha-R8-1cY" firstAttribute="leading" secondItem="J86-YL-T69" secondAttribute="leading" id="QB9-LD-48E"/>
                             <constraint firstItem="bSP-ET-CL2" firstAttribute="centerX" secondItem="nmK-lK-gk9" secondAttribute="centerX" id="Suf-l8-kXr"/>
                             <constraint firstItem="WDX-dM-Uxh" firstAttribute="top" secondItem="J86-YL-T69" secondAttribute="top" id="X8J-w0-j8H"/>
                             <constraint firstItem="J86-YL-T69" firstAttribute="bottom" secondItem="WDX-dM-Uxh" secondAttribute="bottom" id="dqn-Lt-oQE"/>
                             <constraint firstItem="bSP-ET-CL2" firstAttribute="centerY" secondItem="nmK-lK-gk9" secondAttribute="centerY" id="gec-8Q-n3x"/>
                             <constraint firstItem="J86-YL-T69" firstAttribute="trailing" secondItem="WDX-dM-Uxh" secondAttribute="trailing" id="lqb-E2-vZu"/>
+                            <constraint firstItem="bSP-ET-CL2" firstAttribute="leading" secondItem="nmK-lK-gk9" secondAttribute="leading" constant="30" id="opF-lJ-iuR"/>
                             <constraint firstItem="uq5-3Z-hAJ" firstAttribute="top" secondItem="J86-YL-T69" secondAttribute="top" constant="15" id="qy1-7q-io6"/>
                             <constraint firstItem="WDX-dM-Uxh" firstAttribute="leading" secondItem="J86-YL-T69" secondAttribute="leading" id="vWG-SP-3x2"/>
                         </constraints>
@@ -136,7 +146,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="closeButton" destination="uq5-3Z-hAJ" id="aAi-ra-5oO"/>
-                        <outlet property="gameOverTextLabel" destination="bSP-ET-CL2" id="UXY-Rd-Kzr"/>
+                        <outlet property="dimmerView" destination="jha-R8-1cY" id="A16-2N-ufS"/>
+                        <outlet property="infoLabel" destination="bSP-ET-CL2" id="UXY-Rd-Kzr"/>
                         <outlet property="sceneView" destination="WDX-dM-Uxh" id="Vav-yS-cQN"/>
                     </connections>
                 </viewController>
