@@ -21,8 +21,8 @@ class Piece {
     }
 
     /// Defines all the 4 rotations the pieces can be in
-    enum Rotation {
-        case deg0, deg90, deg180, deg270
+    enum Rotation: Int {
+        case deg0 = 0, deg90, deg180, deg270
     }
 
     /// Size (side length) for all pieces
@@ -33,7 +33,7 @@ class Piece {
 
     /// All the rotations in order; traversing the array using an ascending index
     /// goes through the rotations in clockwise order.
-    private static let rotations: [Rotation] = [.deg0, .deg90, .deg180, .deg270]
+    static let rotations: [Rotation] = [.deg0, .deg90, .deg180, .deg270]
 
     /// Defines mapping between rotation constants and their respective coordinate transform functions
     private static let rotationFuncs: [Rotation: RotationFunc?] = [
@@ -68,7 +68,7 @@ class Piece {
     private var rotatedGrid: Grid
 
     /// Current rotation (index to the rotations -array)
-    private var rotationIndex = 0
+    var rotationIndex = 0
 
     /// Margins of the current rotated grid
     var margins: GridMargins!
@@ -163,6 +163,11 @@ class Piece {
 
         return rotatedGrid
     }
+
+    /// Gets a piece grid rotated by the rotation of the specified rotation index
+//    func rotated(rotationIndex: Int) -> Grid {
+//        return rotated(Piece.rotations[rotationIndex]
+//    }
 
     /// Traverses the Piece's rotated grid, calling the callback with x, y, value when there
     /// is a non-nil value for that (x, y) location.

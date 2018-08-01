@@ -126,7 +126,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         dimmerView.isHidden = false
         infoLabel.alpha = 1.0
 
-        let tapRecognizer = UITapGestureRecognizer { [weak self] recognizer in
+        let ditchHelpText: (UIGestureRecognizer) -> Void = { [weak self] recognizer in
             self?.dimmerView.removeGestureRecognizer(recognizer)
 
             UIView.animate(withDuration: 0.4, animations: {
@@ -136,9 +136,18 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                 self?.dimmerView.isHidden = true
             })
         }
+
+        // Install a tap recognizer to get rid of the help text
+        let tapRecognizer = UITapGestureRecognizer { recognizer in
+            ditchHelpText(recognizer)
+        }
         dimmerView.addGestureRecognizer(tapRecognizer)
 
-        //TODO timer to get rid of the text too
+        // Create a timer to get rid of the help text
+        _ = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+            timer.invalidate()
+            ditchHelpText(tapRecognizer)
+        }
     }
 
     /// Shows the "Game Over" text

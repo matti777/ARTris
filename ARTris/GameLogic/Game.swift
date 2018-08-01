@@ -18,8 +18,8 @@ class Game {
     }
 
     /// Types of piece rotation by user interaction
-    enum Rotate {
-        case clockwise, counterclockwise
+    enum Rotate: Int {
+        case clockwise = 1, counterclockwise = -1
     }
 
     /// Game board
@@ -114,7 +114,6 @@ class Game {
             //TODO check for collapsing rows
         } else {
             pieceCoordinates.y += 1
-            log.debug("Piece fall advanced to \(pieceCoordinates)")
 
             // Trigger piece movement in the visuals
             traversePiece { x, y, boardX, boardY, unit in
@@ -127,11 +126,8 @@ class Game {
 
     /// (Attempts to) moves the piece left or right, from user interaction.
     func movePiece(direction: Move) {
-        log.debug("Move piece: \(direction)")
-
         if canMoveBy(x: direction.rawValue, y: 0) {
             pieceCoordinates.x += direction.rawValue
-            log.debug("Piece moved to \(pieceCoordinates)")
 
             // Trigger piece movement in the visuals
             traversePiece { x, y, boardX, boardY, unit in
@@ -142,10 +138,22 @@ class Game {
 
     /// (Attempts to) rotate the piece, from user interaction.
     func rotatePiece(direction: Rotate) {
-        log.debug("Rotate piece: \(direction)")
+        var newRotationIndex = (piece.rotationIndex + direction.rawValue) % Piece.rotations.count
+        if newRotationIndex < 0 {
+            newRotationIndex = Piece.rotations.count - 1
+        }
+        let rotatedGrid = piece.rotated(rotation: Piece.Rotation(rawValue: newRotationIndex)!)
 
+        if board.conflicts(other: rotatedGrid, location: pieceCoordinates) {
+            return
+        }
 
-        //TODO
+        piece.setRotation(rotationIndex: newRotationIndex, rotatedGrid: rotatedGrid)
+
+        // Move the visual pieces according to the new rotation
+        traversePiece { x, y, boardX, boardY, unit in
+            moveGeometryCallback(unit.object, (x: boardX, y: boardY))
+        }
     }
 
     /// Drop the piece down until it lands and stops.
