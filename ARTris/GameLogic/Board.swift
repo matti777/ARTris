@@ -18,12 +18,12 @@ class Board: Grid {
      location) with the board. This method is used as brute-force collision detection
      between the active falling piece and the board.
 
-     - parameter other: the other grid
-     - parameter location: this grid's coordinates on the other grid
+     - parameter grid: the other grid
+     - parameter location: the grid's coordinates on this board
      - returns true if there is a conflict
      */
-    func conflicts(other: Grid, location: GridCoordinates) -> Bool {
-        return other.traverse { x, y, _ in
+    func conflicts(grid: Grid, location: GridCoordinates) -> Bool {
+        return grid.traverse { x, y, _ in
             // Translate the other grid's (x, y) into this Board's coordinate space
             let pos = (x: x + location.x, y: y + location.y)
 
@@ -46,8 +46,58 @@ class Board: Grid {
         }
     }
 
+    /**
+     Calculates the 'drop distance' ie. the amount of rows this piece can fall downwards
+     without conflicting with (= hitting) another piece or the board bottom.
+
+     - parameter grid: the other grid
+     - parameter location: the grid's coordinates on this board
+     - returns number of rows the grid can drop down
+     */
+    func dropDistance(grid: Grid, location: GridCoordinates) -> Int {
+        var maxDistance = numRows + 1
+
+        // Scan every column..
+        for x in 0..<grid.numColumns {
+            let boardX = location.x + x
+
+            // We don't need to look at grid columns outside the board edges
+            if (boardX < 0) || (boardX >= numColumns) {
+                continue
+            }
+
+            // Traverse the grid's column bottom to up and find number of empty units at the bottom
+            var gridEmptyUnits = 0
+            for y in (0..<grid.numRows).reversed() {
+                if grid[x, y] != nil {
+                    break
+                }
+                gridEmptyUnits += 1
+            }
+
+            // If the whole grid column is empty, theres no collision there
+            if gridEmptyUnits == grid.numRows {
+                continue
+            }
+
+            // Traverse the corresponding column of the board and find the number of empty units from the top
+            var boardEmptyUnits = 0
+            for y in 0..<numRows {
+                if self[boardX, y] != nil {
+                    break
+                }
+                boardEmptyUnits += 1
+            }
+
+            let d = boardEmptyUnits - (location.y + grid.numRows) + gridEmptyUnits
+            maxDistance = min(maxDistance, d)
+        }
+
+        return maxDistance
+    }
+
     /// Constructs an empty board
     init() {
-        super.init(numColumns: 10, numRows: 20) // standard tetris board
+        super.init(numColumns: 10, numRows: 17) // slightly lower than standard tetris board
     }
 }

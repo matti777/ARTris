@@ -173,9 +173,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         game.addGeometryCallback = { [weak self] color, boardCoordinates -> AnyObject in
             return self!.handleAddGeometry(color: color, boardCoordinates: boardCoordinates)
         }
-        game.moveGeometryCallback = { [weak self] object, boardCoordinates -> Void in
+        game.moveGeometryCallback = { [weak self] object, boardCoordinates, animate -> Void in
             if let strongSelf = self, let unitNode = object as? UnitNode {
-                strongSelf.handleMoveGeometry(unitNode: unitNode, boardCoordinates: boardCoordinates)
+                strongSelf.handleMoveGeometry(unitNode: unitNode, boardCoordinates: boardCoordinates, animate: animate)
             }
         }
         game.gameOverCallback = { [weak self] in
@@ -234,10 +234,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         swipeDownRecognizer.direction = .down
         sceneView.addGestureRecognizer(swipeDownRecognizer)
 
-        // Start recognizing taps to drop the piece
+        // Start recognizing double taps to drop the piece
         let tapRecognizer = UITapGestureRecognizer(callback: { [weak self] recognizer in
             self?.game.dropPiece()
         })
+        tapRecognizer.numberOfTapsRequired = 2
         sceneView.addGestureRecognizer(tapRecognizer)
 
         // Start the game!
@@ -303,7 +304,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// Adds a new unit cube to the scene.
     func handleAddGeometry(color: UIColor, boardCoordinates: GridCoordinates) -> AnyObject {
-        log.debug("Adding unit to boardCoordinates: \(boardCoordinates)")
         let unitNode = UnitNode(size: boardNode.unitSize, color: color)
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
         boardNode.addChildNode(unitNode)
@@ -312,7 +312,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
 
     /// Moves the given unit node into new position, possibly with animation.
-    func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates) {
+    func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates, animate: Bool) {
         //TODO support animation
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
     }

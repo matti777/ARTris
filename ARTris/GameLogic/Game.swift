@@ -26,7 +26,7 @@ class Game {
     private(set) var board = Board()
 
     /// Game tick timer; at each tick, the current 'falling' piece drops down one row
-    private var timer: Timer!
+    private var timer: Timer?
 
     /// Current 'falling' (interactive) piece
     private var piece: Piece!
@@ -38,30 +38,48 @@ class Game {
     var addGeometryCallback: ((UIColor, GridCoordinates) -> AnyObject)!
 
     /// Callback for moving existing geometry to new position
-    var moveGeometryCallback: ((AnyObject, GridCoordinates) -> Void)!
+    var moveGeometryCallback: ((_ object: AnyObject, _ coordinates: GridCoordinates, _ animate: Bool) -> Void)!
 
     /// Callback for Game Over
     var gameOverCallback: (() -> Void)!
 
     // MARK: Private methods
 
+    /// Invalidates any existing timer and starts a new one.
+    private func resetTimer() {
+        if let timer = timer {
+            timer.invalidate()
+        }
+
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+            self?.timerTick()
+        }
+    }
+
+    // MARK: Public methods
+
     /**
      Traverses the current piece and provides also the translated board coordinates.
 
      See also: `Grid.traverse()`
      */
-    func traversePiece(callback: (_ x: Int, _ y: Int, _ boardX: Int, _ boardY: Int, _ unit: Unit) -> Void) {
+    private func traversePiece(callback: (_ x: Int, _ y: Int, _ boardX: Int, _ boardY: Int, _ unit: Unit) -> Void) {
         piece.traverse { x, y, unit in
             callback(x, y, pieceCoordinates.x + x, pieceCoordinates.y + y, unit)
         }
     }
 
     /// Allocates a new random falling piece and positions it on the top of the board
-    func newFallingPiece() {
+    private func newFallingPiece() {
         // Pick a random piece kind (tetromino type)
         let kind = Piece.kinds[Int.random(UInt32(Piece.kinds.count))]
         piece = Piece(kind: kind)
         log.debug("New falling piece:\n\(piece!.asciiArt())")
+
+        // Pick a random rotation for the piece
+        let rotationIndex = Int.random(UInt32(Piece.rotations.count))
+        let rotatedGrid = piece.rotated(rotation: Piece.Rotation(rawValue: rotationIndex)!)
+        piece.setRotation(rotationIndex: rotationIndex, rotatedGrid: rotatedGrid)
 
         // Place the piece in the middle of the board in x-direction, and just above the top
         pieceCoordinates = (x: (board.numColumns - Piece.size) / 2, y: -(Piece.size - piece.margins.bottom))
@@ -79,45 +97,49 @@ class Game {
      - parameter x: amount to move along the x axis
      - parameter y: amount to move along the y axis
      - returns true if the move is ok
-    */
-    func canMoveBy(x: Int, y: Int) -> Bool {
+     */
+    private func canMoveBy(x: Int, y: Int) -> Bool {
         let newPosition = (x: pieceCoordinates.x + x, y: pieceCoordinates.y + y)
-        return !board.conflicts(other: piece.grid, location: newPosition)
+        return !board.conflicts(grid: piece.grid, location: newPosition)
+    }
+
+    /// Handles piece 'landing' ie. coming to rest.
+    private func pieceLanded() {
+        // Check for 'game over'; that is, if the piece landed even partly over the top of the board
+        if (pieceCoordinates.y + piece.margins.top) < 0 {
+            log.debug("** GAME OVER **")
+            timer?.invalidate()
+            gameOverCallback()
+            return
+        }
+
+        // The piece has 'landed' ie. it will become static part of the board.
+        traversePiece { x, y, boardX, boardY, unit in
+            assert(board[boardX, boardY] == nil, "There should not be a unit there")
+            board[boardX, boardY] = unit
+        }
+        log.debug("Piece has landed.")
+
+        // Trigger new falling piece allocation
+        newFallingPiece()
+
+        //TODO check for collapsing rows
     }
 
     /// Advances the falling of the current piece; checks if the piece has come to a
     /// stop and if so, either decides its game over (piece lands partly or entirely
     /// Outside the Board) or that the piece becodes static part of the board and a new
     /// falling piece should be allocated.
-    func timerTick() {
+    private func timerTick() {
         // Check if we can move one row down
         if !canMoveBy(x: 0, y: 1) {
-            // Check for 'game over'; that is, if the piece landed even partly over the top of the board
-            if (pieceCoordinates.y + piece.margins.top) < 0 {
-                log.debug("** GAME OVER **")
-                timer.invalidate()
-                timer = nil
-                gameOverCallback()
-                return
-            }
-
-            // The piece has 'landed' ie. it will become static part of the board.
-            traversePiece { x, y, boardX, boardY, unit in
-                assert(board[boardX, boardY] == nil, "There should not be a unit there")
-                board[boardX, boardY] = unit
-            }
-            log.debug("Piece has landed.")
-
-            // Trigger new falling piece allocation
-            newFallingPiece()
-
-            //TODO check for collapsing rows
+            pieceLanded()
         } else {
             pieceCoordinates.y += 1
 
             // Trigger piece movement in the visuals
             traversePiece { x, y, boardX, boardY, unit in
-                moveGeometryCallback(unit.object, (x: boardX, y: boardY))
+                moveGeometryCallback(unit.object, (x: boardX, y: boardY), false)
             }
         }
     }
@@ -131,7 +153,7 @@ class Game {
 
             // Trigger piece movement in the visuals
             traversePiece { x, y, boardX, boardY, unit in
-                moveGeometryCallback(unit.object, (x: boardX, y: boardY))
+                moveGeometryCallback(unit.object, (x: boardX, y: boardY), false)
             }
         }
     }
@@ -144,7 +166,7 @@ class Game {
         }
         let rotatedGrid = piece.rotated(rotation: Piece.Rotation(rawValue: newRotationIndex)!)
 
-        if board.conflicts(other: rotatedGrid, location: pieceCoordinates) {
+        if board.conflicts(grid: rotatedGrid, location: pieceCoordinates) {
             return
         }
 
@@ -152,14 +174,21 @@ class Game {
 
         // Move the visual pieces according to the new rotation
         traversePiece { x, y, boardX, boardY, unit in
-            moveGeometryCallback(unit.object, (x: boardX, y: boardY))
+            moveGeometryCallback(unit.object, (x: boardX, y: boardY), false)
         }
     }
 
     /// Drop the piece down until it lands and stops.
     func dropPiece() {
-        log.debug("Drop piece")
-        //TODO
+        let dropDistance = board.dropDistance(grid: piece.grid, location: pieceCoordinates)
+        pieceCoordinates.y += dropDistance
+
+        // Trigger piece movement in the visuals
+        traversePiece { x, y, boardX, boardY, unit in
+            moveGeometryCallback(unit.object, (x: boardX, y: boardY), true)
+        }
+
+        pieceLanded()
     }
 
     /// Starts a new game.
@@ -167,9 +196,8 @@ class Game {
         // Allocate the first falling piece
         newFallingPiece()
 
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
-            self?.timerTick()
-        }
+        // Start the game tick timer
+        resetTimer()
     }
 
     // MARK: Initializers
