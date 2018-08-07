@@ -19,6 +19,25 @@ class UnitNode: SCNNode {
     /// Side length of the cube.
     private(set) var size: CGFloat
 
+    private let normalTransparency = UIColor(white: 0, alpha: 0.8)
+    private let fadedTransparency = UIColor(white: 0, alpha: 0.5)
+
+    /// Defines the unit transparency; units outside the board area (top)
+    /// are set to be faded, all units on the board area are set to normal
+    enum Transparency {
+        case normal, faded
+    }
+
+    /// Sets the unit transparency
+    func setTransparency(transparency: Transparency) {
+        switch transparency {
+        case .normal:
+            geometry?.materials.first?.transparent.contents = normalTransparency
+        case .faded:
+            geometry?.materials.first?.transparent.contents = fadedTransparency
+        }
+    }
+
     /// Creates a new cube with given side size and color.
     init(size: CGFloat, color: UIColor) {
         self.size = size
@@ -27,7 +46,7 @@ class UnitNode: SCNNode {
 
         let geometry = SCNBox(width: size, height: size, length: size, chamferRadius: 0)
         geometry.materials.first?.diffuse.contents = color
-        geometry.materials.first?.transparent.contents = UIColor(white: 0, alpha: 0.8)
+        geometry.materials.first?.transparent.contents = normalTransparency
         self.geometry = geometry
     }
 

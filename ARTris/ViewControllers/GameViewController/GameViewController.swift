@@ -325,6 +325,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
         boardNode.addChildNode(unitNode)
 
+        if boardCoordinates.y < 0 {
+            unitNode.setTransparency(transparency: .faded)
+        } else {
+            unitNode.setTransparency(transparency: .normal)
+        }
+
         return unitNode
     }
 
@@ -332,6 +338,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates, animate: Bool) {
         //TODO support animation
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
+
+        if boardCoordinates.y < 0 {
+            unitNode.setTransparency(transparency: .faded)
+        } else {
+            unitNode.setTransparency(transparency: .normal)
+        }
     }
 
     /// Removes the given unit node geometry, animating its alpha to 0
