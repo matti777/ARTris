@@ -31,6 +31,9 @@ class Game {
     /// Current 'falling' (interactive) piece
     private var piece: Piece!
 
+    /// Current game score
+    private var score: Int = 0
+
     /// Location (on the Board) of the falling piece
     private var pieceCoordinates: GridCoordinates!
 
@@ -42,6 +45,9 @@ class Game {
 
     // Callback for removing collapsed geometry
     var removeGeometryCallback: ((_ object: AnyObject) -> Void)!
+
+    /// Callback for score updated
+    var scoreUpdatedCallback: ((_ newScore: Int) -> Void)!
 
     /// Callback for Game Over
     var gameOverCallback: (() -> Void)!
@@ -133,7 +139,9 @@ class Game {
             moveGeometryCallback(unit.object, coordinates, true)
         })
 
-        //TODO increase score
+        // Increase score
+        score += 1
+        scoreUpdatedCallback(score)
 
         log.debug("Rows collapsed: \(rowsCollapsed)")
     }

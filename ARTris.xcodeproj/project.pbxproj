@@ -33,6 +33,8 @@
 		492A0460210E35A10073CECC /* SceneKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A045E210E35A10073CECC /* SceneKitUtils.swift */; };
 		492A0462210EFB600073CECC /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0461210EFB600073CECC /* UnitNode.swift */; };
 		492A0463210EFB600073CECC /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0461210EFB600073CECC /* UnitNode.swift */; };
+		494A994621198E7200A0228E /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494A994521198E7200A0228E /* ScoreView.swift */; };
+		494A994921198EDC00A0228E /* ScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494A994821198EDC00A0228E /* ScoreView.xib */; };
 		49AAD0EE2110752D005F2049 /* PieceTessts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AAD0ED2110752D005F2049 /* PieceTessts.swift */; };
 		49AAD0EF2110823C005F2049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A04002101DCE20073CECC /* AppDelegate.swift */; };
 		788F8ADD4533D95B9E6F31E4 /* Pods_ARTrisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8BEEAE7691D84A7C0D478D /* Pods_ARTrisTests.framework */; };
@@ -73,6 +75,8 @@
 		492A045B210CC8450073CECC /* BoardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardNode.swift; sourceTree = "<group>"; };
 		492A045E210E35A10073CECC /* SceneKitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitUtils.swift; sourceTree = "<group>"; };
 		492A0461210EFB600073CECC /* UnitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitNode.swift; sourceTree = "<group>"; };
+		494A994521198E7200A0228E /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		494A994821198EDC00A0228E /* ScoreView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreView.xib; sourceTree = "<group>"; };
 		49AAD0ED2110752D005F2049 /* PieceTessts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTessts.swift; sourceTree = "<group>"; };
 		76C7182A820B08FDF82508E2 /* Pods-ARTris.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTris.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTris/Pods-ARTris.release.xcconfig"; sourceTree = "<group>"; };
 		88558F2D3F29B5D97ACC3F71 /* Pods-ARTrisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTrisTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARTrisTests/Pods-ARTrisTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 		492A04322101DF540073CECC /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				494A994721198E7A00A0228E /* ScoreView */,
 				492A04042101DCE20073CECC /* GameViewController.swift */,
 				492A045B210CC8450073CECC /* BoardNode.swift */,
 				492A045E210E35A10073CECC /* SceneKitUtils.swift */,
@@ -197,6 +202,15 @@
 				492A0458210CC7520073CECC /* Board.swift */,
 			);
 			path = GameLogic;
+			sourceTree = "<group>";
+		};
+		494A994721198E7A00A0228E /* ScoreView */ = {
+			isa = PBXGroup;
+			children = (
+				494A994521198E7200A0228E /* ScoreView.swift */,
+				494A994821198EDC00A0228E /* ScoreView.xib */,
+			);
+			path = ScoreView;
 			sourceTree = "<group>";
 		};
 		7D6138EE1A060C122FDE2B6D /* Pods */ = {
@@ -309,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				492A04382101DFF00073CECC /* Podfile in Resources */,
+				494A994921198EDC00A0228E /* ScoreView.xib in Resources */,
 				492A04032101DCE20073CECC /* art.scnassets in Resources */,
 				492A040D2101DCE30073CECC /* LaunchScreen.storyboard in Resources */,
 				492A040A2101DCE30073CECC /* Assets.xcassets in Resources */,
@@ -437,6 +452,7 @@
 				492A045321036DFC0073CECC /* Game.swift in Sources */,
 				492A0459210CC7520073CECC /* Board.swift in Sources */,
 				492A044B2102493B0073CECC /* Piece.swift in Sources */,
+				494A994621198E7200A0228E /* ScoreView.swift in Sources */,
 				492A043C2101E4E50073CECC /* GameViewController.swift in Sources */,
 				492A04342101DF790073CECC /* MenuViewController.swift in Sources */,
 				492A04012101DCE20073CECC /* AppDelegate.swift in Sources */,

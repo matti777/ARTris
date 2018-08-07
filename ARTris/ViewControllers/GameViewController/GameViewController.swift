@@ -67,6 +67,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Red "not allowed here" targetPlane material
     private var notAllowedMaterial = SCNMaterial()
 
+    /// UIView used to render scoreboard textures
+    private var scoreView: ScoreView!
+
     // MARK: Private methods
 
     private func loadResources() {
@@ -77,6 +80,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         notAllowedMaterial.diffuse.contents = UIImage(named: "notallowed_texture")
         notAllowedMaterial.readsFromDepthBuffer = false
         notAllowedMaterial.writesToDepthBuffer = false
+
+        scoreView = Bundle.main.loadNibNamed("ScoreView", owner: nil, options: nil)?.first as? ScoreView
+        scoreView.frame.size = CGSize(width: 1024, height: 1024)
     }
 
     /// Performs a hit test from given gesture recognizer location, optionally limiting the
@@ -176,6 +182,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         game.moveGeometryCallback = { [weak self] object, boardCoordinates, animate -> Void in
             if let strongSelf = self, let unitNode = object as? UnitNode {
                 strongSelf.handleMoveGeometry(unitNode: unitNode, boardCoordinates: boardCoordinates, animate: animate)
+            }
+        }
+        game.removeGeometryCallback = { [weak self] object in
+            if let strongSelf = self, let unitNode = object as? UnitNode {
+                strongSelf.handleRemoveGeometry(unitNode: unitNode)
+            }
+        }
+        game.scoreUpdatedCallback = { [weak self] newScore in
+            if let strongSelf = self {
+                strongSelf.scoreView.update(score: newScore)
+                strongSelf.boardNode.setScoreboardTexture(texture: strongSelf.scoreView.snapshot())
             }
         }
         game.gameOverCallback = { [weak self] in
@@ -315,6 +332,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates, animate: Bool) {
         //TODO support animation
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
+    }
+
+    /// Removes the given unit node geometry, animating its alpha to 0
+    func handleRemoveGeometry(unitNode: UnitNode) {
+        //TODO support animation
+        unitNode.removeFromParentNode()
     }
 
     // MARK: IBAction handlers

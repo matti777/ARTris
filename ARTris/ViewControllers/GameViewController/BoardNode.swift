@@ -30,7 +30,15 @@ class BoardNode: SCNNode {
     /// Unit side length (= dimensions for a unit cube, building blocks for game pieces)
     private(set) var unitSize: CGFloat
 
+    /// The Scoreboard node
+    private var scoreboard: SCNNode!
+
     // MARK: Public methods
+
+    /// Updates the scoreboard texture from an image
+    func setScoreboardTexture(texture: UIImage) {
+        scoreboard.geometry?.firstMaterial?.diffuse.contents = texture
+    }
 
     /// Translates the given unit's 2D board grid coordinates into 3D coordinates in
     /// the BoardNode's coordinate system. The returned coordinate will represent the
@@ -89,6 +97,14 @@ class BoardNode: SCNNode {
         addChildNode(rightWall)
 
         //TODO others
+
+        // Create the score board on the left side of the game board
+        let scoreboardSize = width / 2
+        let scoreBoardGeometry = SCNPlane(width: scoreboardSize, height: scoreboardSize)
+        scoreBoardGeometry.firstMaterial?.diffuse.contents = UIColor(hexString: "#AAAAAA")
+        let scoreboard = SCNNode(geometry: scoreBoardGeometry)
+        scoreboard.position.x = Float(-(scoreboardSize + width * 1.1) / 2.0)
+        addChildNode(scoreboard)
     }
 
     /// Not implemented
