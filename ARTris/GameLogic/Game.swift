@@ -40,6 +40,9 @@ class Game {
     /// Callback for moving existing geometry to new position
     var moveGeometryCallback: ((_ object: AnyObject, _ coordinates: GridCoordinates, _ animate: Bool) -> Void)!
 
+    // Callback for removing collapsed geometry
+    var removeGeometryCallback: ((_ object: AnyObject) -> Void)!
+
     /// Callback for Game Over
     var gameOverCallback: (() -> Void)!
 
@@ -123,7 +126,16 @@ class Game {
         // Trigger new falling piece allocation
         newFallingPiece()
 
-        //TODO check for collapsing rows
+        // Check for full rows and collapse them
+        let rowsCollapsed = board.collapseFullRows(removeUnitCallback: { unit in
+            removeGeometryCallback(unit.object)
+        }, moveUnitCallback: { unit, coordinates in
+            moveGeometryCallback(unit.object, coordinates, true)
+        })
+
+        //TODO increase score
+
+        log.debug("Rows collapsed: \(rowsCollapsed)")
     }
 
     /// Advances the falling of the current piece; checks if the piece has come to a

@@ -340,6 +340,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         plane.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         plane.eulerAngles.x = -.pi / 2
 
+        //TODO match the rotation of the anchor.transform
+        
         node.addChildNode(plane)
 
         horizontalPlanes.append(plane)
@@ -354,6 +356,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         plane.height = CGFloat(planeAnchor.extent.z)
 
         planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
+
+        //TODO match the rotation of the anchor.transform
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {

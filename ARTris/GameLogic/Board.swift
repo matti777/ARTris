@@ -14,6 +14,71 @@ import Foundation
  */
 class Board: Grid {
     /**
+     Collapses all full rows (with no empty units).
+
+     - returns number of rows collapsed
+     */
+    func collapseFullRows(removeUnitCallback: (Unit) -> Void, moveUnitCallback: (Unit, GridCoordinates) -> Void) -> Int {
+        var unitsToRemove = [Unit]()
+        var unitsToMove = [Unit: GridCoordinates]()
+        var rowsCollapsed = 0
+
+        func move(unit: Unit) {
+            guard let coordinates = unitsToMove[unit] else {
+                fatalError("Unit not found")
+            }
+
+            unitsToMove[unit] = (x: coordinates.x, y: coordinates.y + 1)
+        }
+
+        func willMove(unit: Unit, coordinates: GridCoordinates) {
+            unitsToMove[unit] = coordinates
+        }
+
+        func collapse(aboveRow: Int) {
+            for y in (0..<aboveRow).reversed() {
+                for x in 0..<numColumns {
+                    self[x, y + 1] = self[x, y]
+                }
+            }
+        }
+
+        // Scan all rows starting from the top of the board
+        for y in 0..<numRows {
+            var rowUnits = [Unit]()
+
+            // Scan the row and see if it is 'full'
+            for x in 0..<numColumns where self[x, y] != nil {
+                rowUnits.append(self[x, y]!)
+            }
+
+            if rowUnits.count == numColumns {
+                // This was a full row, it will be collapsed and everything above
+                // it will be dropped down one more line
+                unitsToRemove.append(contentsOf: rowUnits)
+                unitsToMove.keys.forEach { move(unit: $0) }
+                rowsCollapsed += 1
+
+                // Move the board contents above this line down by 1
+                collapse(aboveRow: y)
+            } else {
+                // This is not a full row; instead, it will get moved down by
+                // any collapsing row beneath it
+                for x in 0..<rowUnits.count {
+                    willMove(unit: rowUnits[x], coordinates: (x: x, y: y))
+                }
+            }
+        }
+
+        if !unitsToRemove.isEmpty {
+            unitsToRemove.forEach { removeUnitCallback($0) }
+            unitsToMove.forEach { moveUnitCallback($0.0, $0.1) }
+        }
+
+        return rowsCollapsed
+    }
+
+    /**
      Checks if another grid (a game piece) conflicts (both grids have a unit in the corresponding
      location) with the board. This method is used as brute-force collision detection
      between the active falling piece and the board.
