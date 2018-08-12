@@ -2,6 +2,12 @@
 
 A Tetris clone written for ARKit / SceneKit, ios11+.
 
+## Screenshots
+
+![Gameplay](https://raw.githubusercontent.com/matti777/ARTris/master/Screenshots/IMG_1816.PNG)
+
+![Game over](https://raw.githubusercontent.com/matti777/ARTris/master/Screenshots/IMG_1817.PNG)
+
 ## License
 
 The software is licensed under the MIT license.
