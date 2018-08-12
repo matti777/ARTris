@@ -115,13 +115,13 @@ class Piece {
         .inverseS: ["....",
                     ".XX.",
                     "..XX",
-                    "...."],
+                    "...."]
     ]
 
     /// Creates a new Grid for a given piece type.
     private static func parseShape(kind: Kind) -> Grid {
         guard let shape = Piece.shapes[kind] else {
-            assert(false, "Failed to find shape for kind \(kind)")
+            fatalError("Failed to find shape for kind \(kind)")
         }
 
         assert(shape.count == Piece.size, "Invalid row count for shape")

@@ -82,7 +82,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         notAllowedMaterial.writesToDepthBuffer = false
 
         scoreView = Bundle.main.loadNibNamed("ScoreView", owner: nil, options: nil)?.first as? ScoreView
-        scoreView.frame.size = CGSize(width: 1024, height: 1024)
+        scoreView.frame.size = CGSize(width: 512, height: 512)
     }
 
     /// Performs a hit test from given gesture recognizer location, optionally limiting the
@@ -176,7 +176,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Updates the scoreboard texture
     private func updateScoreBoard(score: Int) {
         scoreView.update(score: score)
-        boardNode.setScoreboardTexture(texture: scoreView.snapshot())
+
+        runInBackground {
+            let snapshot = self.scoreView.snapshot()
+            runOnMainThread {
+                self.boardNode.setScoreboardTexture(texture: snapshot)
+            }
+        }
     }
 
     /// Sets up the Game object and its callbacks
