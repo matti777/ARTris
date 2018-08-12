@@ -470,6 +470,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
         infoLabel.text = nil
 
+        // Initially disable scenekit animations
+        SCNTransaction.animationDuration = 0
+
         // Set up the Game engine
         createGame()
 
