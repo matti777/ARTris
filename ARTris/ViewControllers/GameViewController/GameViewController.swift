@@ -278,6 +278,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         tapRecognizer.numberOfTapsRequired = 2
         sceneView.addGestureRecognizer(tapRecognizer)
 
+        // Animate all geometry manipulations
+        SCNTransaction.animationDuration = 0.3
+
         // Start the game!
         game.start()
     }
@@ -462,17 +465,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         closeButton.layer.cornerRadius = closeButton.width / 2.0
     }
 
-    deinit {
-        log.debug("GameViewController deallocated.")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         infoLabel.text = nil
-
-        // Animate all geometry manipulations
-        SCNTransaction.animationDuration = 0.3
 
         // Set up the Game engine
         createGame()

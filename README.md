@@ -1,7 +1,11 @@
-# AR fun with Tetris
+# ARTris - ARKit Tetris clone
 
-TBD!
+A Tetris clone written for ARKit / SceneKit, ios11+.
 
-# Acknowledgements
+## License
+
+The software is licensed under the MIT license.
+
+## Acknowledgements
 
 * App Icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) (Creative Commons BY 3.0)
