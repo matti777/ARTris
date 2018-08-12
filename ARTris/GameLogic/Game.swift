@@ -83,7 +83,7 @@ class Game {
         // Pick a random piece kind (tetromino type)
         let kind = Piece.kinds[Int.random(UInt32(Piece.kinds.count))]
         piece = Piece(kind: kind)
-        log.debug("New falling piece:\n\(piece!.asciiArt())")
+//        log.debug("New falling piece:\n\(piece!.asciiArt())")
 
         // Pick a random rotation for the piece
         let rotationIndex = Int.random(UInt32(Piece.rotations.count))
@@ -133,7 +133,7 @@ class Game {
         newFallingPiece()
 
         // Check for full rows and collapse them
-        let rowsCollapsed = board.collapseFullRows(removeUnitCallback: { unit in
+        _ = board.collapseFullRows(removeUnitCallback: { unit in
             removeGeometryCallback(unit.object)
         }, moveUnitCallback: { unit, coordinates in
             moveGeometryCallback(unit.object, coordinates, true)
@@ -142,8 +142,7 @@ class Game {
         // Increase score
         score += 1
         scoreUpdatedCallback(score)
-
-        log.debug("Rows collapsed: \(rowsCollapsed)")
+        log.debug("Score increased to: \(score)")
     }
 
     /// Advances the falling of the current piece; checks if the piece has come to a

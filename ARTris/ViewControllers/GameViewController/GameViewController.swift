@@ -171,18 +171,22 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             self.infoLabel.alpha = 1.0
             self.dimmerView.alpha = 0.5
         }
+
+        // Fade out the game over text after a while so the player can inspect the game field
+        runOnMainThreadAfter(delay: 3.0) {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.infoLabel.alpha = 0.0
+                self.dimmerView.alpha = 0.0
+            }, completion: { completed in
+                self.dimmerView.isHidden = true
+            })
+        }
     }
 
     /// Updates the scoreboard texture
     private func updateScoreBoard(score: Int) {
         scoreView.update(score: score)
-
-        runInBackground {
-            let snapshot = self.scoreView.snapshot()
-            runOnMainThread {
-                self.boardNode.setScoreboardTexture(texture: snapshot)
-            }
-        }
+        boardNode.setScoreboardTexture(texture: scoreView.snapshot())
     }
 
     /// Sets up the Game object and its callbacks
