@@ -73,23 +73,6 @@ class Piece {
     /// Margins of the current rotated grid
     var margins: GridMargins!
 
-    /// Returns the number of empty rows in the bottom of the grid
-//    var bottomMargin: Int {
-//        for i in 0..<Piece.size {
-//            let y = (Piece.size - 1) - i
-//            for x in 0..<Piece.size where self[x, y] != nil {
-//                return i
-//            }
-//        }
-//
-//        return Piece.size
-//    }
-
-    // MARK: Private methods
-
-    private func calculateGridMargins() {
-    }
-
     // All the piece shapes (in their 0-degree rotation) in parseable ascii art format
     private static let shapes: [Kind: [String]] = [
         .square: ["....",
@@ -163,11 +146,6 @@ class Piece {
 
         return rotatedGrid
     }
-
-    /// Gets a piece grid rotated by the rotation of the specified rotation index
-//    func rotated(rotationIndex: Int) -> Grid {
-//        return rotated(Piece.rotations[rotationIndex]
-//    }
 
     /// Traverses the Piece's rotated grid, calling the callback with x, y, value when there
     /// is a non-nil value for that (x, y) location.

@@ -19,8 +19,8 @@ class UnitNode: SCNNode {
     /// Side length of the cube.
     private(set) var size: CGFloat
 
-    private let normalTransparency = UIColor(white: 0, alpha: 0.8)
-    private let fadedTransparency = UIColor(white: 0, alpha: 0.5)
+    private let normalTransparency = UIColor(white: 0, alpha: 0.85)
+    private let fadedTransparency = UIColor(white: 0, alpha: 0.3)
 
     /// Defines the unit transparency; units outside the board area (top)
     /// are set to be faded, all units on the board area are set to normal

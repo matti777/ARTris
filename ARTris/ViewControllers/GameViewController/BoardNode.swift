@@ -74,12 +74,14 @@ class BoardNode: SCNNode {
         floorGeometry.materials = [wallMaterial]
         let floor = SCNNode(geometry: floorGeometry)
         floor.eulerAngles.x = -.pi / 2
+        floor.renderingOrder = 1
         addChildNode(floor)
 
         // Add 'roof'
         let roof = SCNNode(geometry: floorGeometry)
         roof.eulerAngles.x = -.pi / 2
         roof.position.y = Float(height)
+        roof.renderingOrder = 1
         addChildNode(roof)
 
         // Add 'left wall'
@@ -90,6 +92,7 @@ class BoardNode: SCNNode {
         leftWall.eulerAngles.z = .pi / 2
         leftWall.position.x = Float(-width / 2)
         leftWall.position.y = Float(height / 2)
+        leftWall.renderingOrder = 1
         addChildNode(leftWall)
 
         // Add 'right wall'
@@ -98,7 +101,15 @@ class BoardNode: SCNNode {
         rightWall.eulerAngles.z = .pi / 2
         rightWall.position.x = Float(width / 2)
         rightWall.position.y = Float(height / 2)
+        rightWall.renderingOrder = 1
         addChildNode(rightWall)
+
+        // Add 'board background'
+        let backgroundGeometry = SCNPlane(width: width, height: height)
+        let background = SCNNode(geometry: backgroundGeometry)
+        backgroundGeometry.materials = [createMaterial(UIColor(hexString: "#000000AA"))]
+        background.position.y = Float(height / 2)
+        addChildNode(background)
 
         // Create the score board on the left side of the game board
         let scoreboardSize = width * 1.2 / 2

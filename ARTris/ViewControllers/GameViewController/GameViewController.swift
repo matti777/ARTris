@@ -150,8 +150,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         dimmerView.addGestureRecognizer(tapRecognizer)
 
         // Create a timer to get rid of the help text
-        _ = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
-            timer.invalidate()
+        runOnMainThreadAfter(delay: 5.0) {
             ditchHelpText(tapRecognizer)
         }
     }
@@ -216,6 +215,14 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// Place the game board onto the selected plane / location and start the game.
     /// Also register the gesture recognizers required to control the game.
     private func startGame(worldCoordinates: SCNVector3, unitSize: CGFloat, pointOfView: SCNNode) {
+        // Stop recognizing anchors & remove existing anchors
+        arConfig.planeDetection = []
+        sceneView.session.run(arConfig, options: [.removeExistingAnchors])
+
+        // Remove all the found horizontal planes
+        horizontalPlanes.forEach { $0.removeFromParentNode() }
+
+        // Create the game board into the selected location
         boardNode = BoardNode(board: game.board, unitSize: unitSize)
         boardNode.position = worldCoordinates
 
@@ -320,7 +327,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     private func panEnded(recognizer: UIGestureRecognizer) {
         if let targetPlane = targetPlane, let targetPlaneGeometry = targetPlane.geometry as? SCNPlane, let hitResult = hitTest(recognizer: recognizer, hitBitMask: infinitePlaneCategoryMask), let pov = sceneView.pointOfView {
 
-            startGame(worldCoordinates: hitResult.worldCoordinates, unitSize: targetPlaneGeometry.width / CGFloat(game.board.numColumns), pointOfView: pov)
+            if !targetPlaneGeometry.materials.contains(notAllowedMaterial) {
+                // Calculate board size from target plane geometry size
+                let unitSize = (targetPlaneGeometry.width / CGFloat(game.board.numColumns)) * 0.5
+                startGame(worldCoordinates: hitResult.worldCoordinates, unitSize: unitSize, pointOfView: pov)
+            }
         }
 
         targetPlane?.removeFromParentNode()
@@ -349,7 +360,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// Moves the given unit node into new position, possibly with animation.
     func handleMoveGeometry(unitNode: UnitNode, boardCoordinates: GridCoordinates, animate: Bool) {
-        //TODO support animation
         unitNode.position = boardNode.translateCoordinates(gridCoordinates: boardCoordinates)
 
         if boardCoordinates.y < 0 {
@@ -361,7 +371,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// Removes the given unit node geometry, animating its alpha to 0
     func handleRemoveGeometry(unitNode: UnitNode) {
-        //TODO support animation
         unitNode.removeFromParentNode()
     }
 
@@ -388,8 +397,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         plane.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
         plane.eulerAngles.x = -.pi / 2
 
-        //TODO match the rotation of the anchor.transform
-        
         node.addChildNode(plane)
 
         horizontalPlanes.append(plane)
@@ -404,8 +411,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         plane.height = CGFloat(planeAnchor.extent.z)
 
         planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
-
-        //TODO match the rotation of the anchor.transform
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
@@ -457,10 +462,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         closeButton.layer.cornerRadius = closeButton.width / 2.0
     }
 
+    deinit {
+        log.debug("GameViewController deallocated.")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         infoLabel.text = nil
+
+        // Animate all geometry manipulations
+        SCNTransaction.animationDuration = 0.3
 
         // Set up the Game engine
         createGame()

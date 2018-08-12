@@ -83,7 +83,6 @@ class Game {
         // Pick a random piece kind (tetromino type)
         let kind = Piece.kinds[Int.random(UInt32(Piece.kinds.count))]
         piece = Piece(kind: kind)
-//        log.debug("New falling piece:\n\(piece!.asciiArt())")
 
         // Pick a random rotation for the piece
         let rotationIndex = Int.random(UInt32(Piece.rotations.count))
@@ -116,7 +115,6 @@ class Game {
     private func pieceLanded() {
         // Check for 'game over'; that is, if the piece landed even partly over the top of the board
         if (pieceCoordinates.y + piece.margins.top) < 0 {
-            log.debug("** GAME OVER **")
             timer?.invalidate()
             gameOverCallback()
             return
@@ -127,7 +125,6 @@ class Game {
             assert(board[boardX, boardY] == nil, "There should not be a unit there")
             board[boardX, boardY] = unit
         }
-        log.debug("Piece has landed.")
 
         // Trigger new falling piece allocation
         newFallingPiece()
@@ -142,7 +139,6 @@ class Game {
         // Increase score
         score += 1
         scoreUpdatedCallback(score)
-        log.debug("Score increased to: \(score)")
     }
 
     /// Advances the falling of the current piece; checks if the piece has come to a

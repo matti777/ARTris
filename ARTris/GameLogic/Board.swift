@@ -38,9 +38,7 @@ class Board: Grid {
         }
 
         func collapse(aboveRow: Int) {
-            log.debug("collapsing aboveRow: \(aboveRow)")
             for y in (0..<aboveRow).reversed() {
-                log.debug("dropping row \(y) on step down")
                 for x in 0..<numColumns {
                     // Move the unit value at this location (x, y) one row down
                     // and clear the value ar this location
