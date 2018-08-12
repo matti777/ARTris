@@ -4,9 +4,9 @@ A Tetris clone written for ARKit / SceneKit, ios11+.
 
 ## Screenshots
 
-![Gameplay](https://raw.githubusercontent.com/matti777/ARTris/master/Screenshots/IMG_1816.PNG)
+![Gameplay](https://raw.githubusercontent.com/matti777/ARTris/master/Screenshots/IMG_1816.PNG | width=400)
 
-![Game over](https://raw.githubusercontent.com/matti777/ARTris/master/Screenshots/IMG_1817.PNG)
+![Game over](https://raw.githubusercontent.com/matti777/ARTris/master/Screenshots/IMG_1817.PNG | width=400)
 
 ## License
 
