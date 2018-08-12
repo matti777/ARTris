@@ -213,16 +213,13 @@ class Game {
 
     /// Starts a new game.
     func start() {
+        score = 0
+        scoreUpdatedCallback(score)
+
         // Allocate the first falling piece
         newFallingPiece()
 
         // Start the game tick timer
         resetTimer()
-    }
-
-    // MARK: Initializers
-
-    /// Creates a new game
-    init() {
     }
 }

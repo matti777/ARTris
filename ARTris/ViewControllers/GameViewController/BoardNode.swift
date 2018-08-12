@@ -101,11 +101,12 @@ class BoardNode: SCNNode {
         addChildNode(rightWall)
 
         // Create the score board on the left side of the game board
-        let scoreboardSize = width / 2
+        let scoreboardSize = width * 1.2 / 2
         let scoreBoardGeometry = SCNPlane(width: scoreboardSize, height: scoreboardSize)
         scoreBoardGeometry.firstMaterial?.diffuse.contents = UIColor(hexString: "#AAAAAA")
-        let scoreboard = SCNNode(geometry: scoreBoardGeometry)
+        scoreboard = SCNNode(geometry: scoreBoardGeometry)
         scoreboard.position.x = Float(-(scoreboardSize + width * 1.1) / 2.0)
+        scoreboard.position.y = Float((scoreboardSize + height) / 2.0)
         addChildNode(scoreboard)
     }
 

@@ -32,30 +32,41 @@ class Board: Grid {
         }
 
         func willMove(unit: Unit, coordinates: GridCoordinates) {
+            assert(unitsToMove[unit] == nil, "Must not have an unit already")
+
             unitsToMove[unit] = coordinates
         }
 
         func collapse(aboveRow: Int) {
+            log.debug("collapsing aboveRow: \(aboveRow)")
             for y in (0..<aboveRow).reversed() {
+                log.debug("dropping row \(y) on step down")
                 for x in 0..<numColumns {
+                    // Move the unit value at this location (x, y) one row down
+                    // and clear the value ar this location
                     self[x, y + 1] = self[x, y]
+                    self[x, y] = nil
                 }
             }
         }
 
         // Scan all rows starting from the top of the board
         for y in 0..<numRows {
-            var rowUnits = [Unit]()
+            var rowUnits = [Unit?](repeating: nil, count: numColumns)
 
-            // Scan the row and see if it is 'full'
-            for x in 0..<numColumns where self[x, y] != nil {
-                rowUnits.append(self[x, y]!)
+            // Record the row contents into a auxiliary array - nil's also
+            var units = 0
+            for x in 0..<numColumns {
+                if let unit = self[x, y] {
+                    rowUnits[x] = unit
+                    units += 1
+                }
             }
 
-            if rowUnits.count == numColumns {
+            if units == numColumns {
                 // This was a full row, it will be collapsed and everything above
-                // it will be dropped down one more line
-                unitsToRemove.append(contentsOf: rowUnits)
+                // it will be dropped down one line
+                unitsToRemove.append(contentsOf: rowUnits.compactMap { $0 })
                 unitsToMove.keys.forEach { move(unit: $0) }
                 rowsCollapsed += 1
 
@@ -64,8 +75,10 @@ class Board: Grid {
             } else {
                 // This is not a full row; instead, it will get moved down by
                 // any collapsing row beneath it
-                for x in 0..<rowUnits.count {
-                    willMove(unit: rowUnits[x], coordinates: (x: x, y: y))
+                for x in 0..<numColumns {
+                    if let unit = rowUnits[x] {
+                        willMove(unit: unit, coordinates: (x: x, y: y))
+                    }
                 }
             }
         }

@@ -19,11 +19,11 @@ class ScoreView: UIView {
     private let strokeTextAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.strokeColor: UIColor.white,
         NSAttributedStringKey.foregroundColor: UIColor.red,
-        NSAttributedStringKey.strokeWidth: -30.0]
+        NSAttributedStringKey.strokeWidth: -10.0]
 
     /// Updates the score
     func update(score: Int) {
-        titleLabel.attributedText = NSAttributedString(string: "\(score)", attributes: strokeTextAttributes)
+        scoreLabel.attributedText = NSAttributedString(string: "\(score)", attributes: strokeTextAttributes)
     }
 
     override func awakeFromNib() {

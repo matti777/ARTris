@@ -173,6 +173,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
+    /// Updates the scoreboard texture
+    private func updateScoreBoard(score: Int) {
+        scoreView.update(score: score)
+        boardNode.setScoreboardTexture(texture: scoreView.snapshot())
+    }
+
     /// Sets up the Game object and its callbacks
     private func createGame() {
         game = Game()
@@ -190,10 +196,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         game.scoreUpdatedCallback = { [weak self] newScore in
-            if let strongSelf = self {
-                strongSelf.scoreView.update(score: newScore)
-                strongSelf.boardNode.setScoreboardTexture(texture: strongSelf.scoreView.snapshot())
-            }
+            self?.updateScoreBoard(score: newScore)
         }
         game.gameOverCallback = { [weak self] in
             self?.showGameOverText()
@@ -406,15 +409,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         self.view.makeToast("ARKit session error: \(error)")
@@ -427,7 +421,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
-
     }
 
     // MARK: Lifecycle etc.
@@ -484,10 +477,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
 
         // Enable debug visualization helpers
-        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-
-        // Show statistics such as fps and timing information
-//        sceneView.showsStatistics = true
+//        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
 
         // Create a session configuration
         arConfig = ARWorldTrackingConfiguration()
