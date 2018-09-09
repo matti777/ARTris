@@ -332,7 +332,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
             if !targetPlaneGeometry.materials.contains(notAllowedMaterial) {
                 // Calculate board size from target plane geometry size
-                let unitSize = (targetPlaneGeometry.width / CGFloat(game.board.numColumns)) * 0.5
+                let unitSize = (targetPlaneGeometry.width / CGFloat(game.board.numColumns)) * 0.4
                 startGame(worldCoordinates: hitResult.worldCoordinates, unitSize: unitSize, pointOfView: pov)
             }
         }

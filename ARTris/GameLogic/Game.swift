@@ -22,6 +22,9 @@ class Game {
         case clockwise = 1, counterclockwise = -1
     }
 
+    /// Score values for rows collapsed
+    private let rowCollapseScores = [0, 10, 25, 40, 55]
+
     /// Game board
     private(set) var board = Board()
 
@@ -33,6 +36,9 @@ class Game {
 
     /// Current game score
     private var score: Int = 0
+
+    /// Number of pieces created
+    private var piecesCreated: Int = 0
 
     /// Location (on the Board) of the falling piece
     private var pieceCoordinates: GridCoordinates!
@@ -60,7 +66,12 @@ class Game {
             timer.invalidate()
         }
 
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+        // Calculate timer duration from the number of pieces created; each
+        // makes the timer faster by an amount, up to a capped limit
+        let cap = 200
+        let capped = min(cap, piecesCreated)
+        let interval = 0.5 - (Double(capped) * (0.4 / Double(cap)))
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { [weak self] timer in
             self?.timerTick()
         }
     }
@@ -97,6 +108,8 @@ class Game {
         traversePiece { x, y, boardX, boardY, unit in
             unit.object = self.addGeometryCallback(Piece.colors[piece.kind]!, (x: boardX, y: boardY))
         }
+
+        piecesCreated += 1
     }
 
     /**
@@ -111,13 +124,14 @@ class Game {
         return !board.conflicts(grid: piece.grid, location: newPosition)
     }
 
-    /// Handles piece 'landing' ie. coming to rest.
-    private func pieceLanded() {
+    /// Handles piece 'landing' ie. coming to rest. Returns true if this caused a game
+    /// over.
+    private func pieceLanded() -> Bool {
         // Check for 'game over'; that is, if the piece landed even partly over the top of the board
         if (pieceCoordinates.y + piece.margins.top) < 0 {
             timer?.invalidate()
             gameOverCallback()
-            return
+            return true
         }
 
         // The piece has 'landed' ie. it will become static part of the board.
@@ -130,15 +144,18 @@ class Game {
         newFallingPiece()
 
         // Check for full rows and collapse them
-        _ = board.collapseFullRows(removeUnitCallback: { unit in
+        let rowsCollapsed = board.collapseFullRows(removeUnitCallback: { unit in
             removeGeometryCallback(unit.object)
         }, moveUnitCallback: { unit, coordinates in
             moveGeometryCallback(unit.object, coordinates, true)
         })
 
+        assert(rowsCollapsed >= 0 && rowsCollapsed <= 4, "Incorrect value")
+
         // Increase score
-        score += 1
+        score += 1 + rowCollapseScores[rowsCollapsed]
         scoreUpdatedCallback(score)
+        return false
     }
 
     /// Advances the falling of the current piece; checks if the piece has come to a
@@ -148,7 +165,10 @@ class Game {
     private func timerTick() {
         // Check if we can move one row down
         if !canMoveBy(x: 0, y: 1) {
-            pieceLanded()
+            if pieceLanded() {
+                // Game over - do not reset timer
+                return
+            }
         } else {
             pieceCoordinates.y += 1
 
@@ -157,6 +177,8 @@ class Game {
                 moveGeometryCallback(unit.object, (x: boardX, y: boardY), false)
             }
         }
+
+        resetTimer()
     }
 
     // MARK: Public methods
@@ -209,6 +231,7 @@ class Game {
     /// Starts a new game.
     func start() {
         score = 0
+        piecesCreated = 0
         scoreUpdatedCallback(score)
 
         // Allocate the first falling piece
