@@ -5,10 +5,10 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/qvik/qvik-podspecs.git'
 
 def all_pods
-    pod 'QvikSwift', '~> 5'
+    pod 'QvikSwift', '~> 6'
     #pod 'QvikSwift', :path => '../qvik-swift-ios/'
-    pod 'XCGLogger', '~> 6.0'
-    pod 'Toast-Swift', '~> 3'
+    pod 'XCGLogger', '~> 7'
+    pod 'Toast-Swift', '~> 5'
     pod 'SwiftLint'
 end
 

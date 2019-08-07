@@ -16,10 +16,10 @@ class ScoreView: UIView {
     @IBOutlet private var scoreLabel: UILabel!
 
     /// Our text attributes
-    private let strokeTextAttributes: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.strokeColor: UIColor.white,
-        NSAttributedStringKey.foregroundColor: UIColor.red,
-        NSAttributedStringKey.strokeWidth: -2.0]
+    private let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.strokeColor: UIColor.white,
+        NSAttributedString.Key.foregroundColor: UIColor.red,
+        NSAttributedString.Key.strokeWidth: -2.0]
 
     /// Updates the score
     func update(score: Int) {

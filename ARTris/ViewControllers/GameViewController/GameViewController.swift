@@ -89,7 +89,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     /// test to a given hittable bitmask
     private func hitTest(recognizer: UIGestureRecognizer, hitBitMask: Int? = nil) -> SCNHitTestResult? {
         let location = recognizer.location(in: sceneView)
-        var options: [SCNHitTestOption: Any]? = nil
+        var options: [SCNHitTestOption: Any]?
         if let hitBitMask = hitBitMask {
             options = [SCNHitTestOption.categoryBitMask: hitBitMask]
         }
@@ -121,10 +121,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// Shows the help text
     private func showHelpText() {
-        let strokeTextAttributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.strokeColor: UIColor.black,
-            NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.strokeWidth: -2.0]
+        let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.strokeColor: UIColor.black,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.strokeWidth: -2.0]
         infoLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 42)!
         infoLabel.attributedText = NSAttributedString(string: helpText, attributes: strokeTextAttributes)
 
@@ -157,10 +157,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
     /// Shows the "Game Over" text
     private func showGameOverText() {
-        let strokeTextAttributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.strokeColor: UIColor.black,
-            NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.strokeWidth: -2.0]
+        let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.strokeColor: UIColor.black,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.strokeWidth: -2.0]
         infoLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 96)!
         infoLabel.attributedText = NSAttributedString(string: "Game Over", attributes: strokeTextAttributes)
 

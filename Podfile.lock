@@ -2,19 +2,19 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
-  - QvikSwift (5.0.0)
-  - SwiftLint (0.26.0)
-  - Toast-Swift (3.0.1)
-  - XCGLogger (6.0.4):
-    - XCGLogger/Core (= 6.0.4)
-  - XCGLogger/Core (6.0.4):
+  - QvikSwift (6.0.1)
+  - SwiftLint (0.34.0)
+  - Toast-Swift (5.0.0)
+  - XCGLogger (7.0.0):
+    - XCGLogger/Core (= 7.0.0)
+  - XCGLogger/Core (7.0.0):
     - ObjcExceptionBridging
 
 DEPENDENCIES:
-  - QvikSwift (~> 5)
+  - QvikSwift (~> 6)
   - SwiftLint
-  - Toast-Swift (~> 3)
-  - XCGLogger (~> 6.0)
+  - Toast-Swift (~> 5)
+  - XCGLogger (~> 7)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -27,11 +27,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  QvikSwift: 08dab48210b361f2ed45760e662a0ff71d25f62f
-  SwiftLint: f6b83e8d95ee1e91e11932d843af4fdcbf3fc764
-  Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
-  XCGLogger: 4fc1bc0bdd5828cb8dc8da7a843536cda1bea8f3
+  QvikSwift: ef449ee7daf584d141b0384c4aa1d62e9caa8369
+  SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
+  Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
+  XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: 0e403a6c55afb360acfb8e50ba6c873150290f45
+PODFILE CHECKSUM: 931ed853818070b655c77b30fb672e279e0265d1
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.4

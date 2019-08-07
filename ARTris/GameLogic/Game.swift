@@ -126,6 +126,7 @@ class Game {
 
     /// Handles piece 'landing' ie. coming to rest. Returns true if this caused a game
     /// over.
+    @discardableResult
     private func pieceLanded() -> Bool {
         // Check for 'game over'; that is, if the piece landed even partly over the top of the board
         if (pieceCoordinates.y + piece.margins.top) < 0 {
